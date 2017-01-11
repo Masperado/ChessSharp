@@ -2,6 +2,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #e6f9ff;
 }
 
 
@@ -13,6 +14,18 @@ h1 {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+#board{
+    margin: 10px auto auto auto;
+}
+
+#buttons {
+    text-align: center;
+}
+
+#startBtn, #clearBtn {
+    border-radius: 4px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -52,4 +65,21 @@ textarea {
   .carousel-caption {
     display: none
   }
+}
+
+
+#navbar1 {
+    background-color: yellow;
+ }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: red;
+}
+
+.navbar-inverse .navbar-brand {
+    color: red;
+}
+
+footer {
+    float: right;
 }
