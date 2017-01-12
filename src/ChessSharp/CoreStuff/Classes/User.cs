@@ -17,7 +17,14 @@ namespace ChessSharp.Models
         /// </summary>
         public int Elo { get; set; }
 
-        
+        public List<Guid> GameHistory { get; set; }
+
+        public User(string username)
+        {
+            Id = Guid.NewGuid();
+            Username = username;
+            Elo = Constants.StartingElo;
+        }
 
        
     }

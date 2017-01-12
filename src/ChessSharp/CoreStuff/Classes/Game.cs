@@ -38,5 +38,16 @@ namespace ChessSharp.Models
         /// State of this game.
         /// </summary>
         public GameState CurrentGameState { get; set; }
+
+        public Game(Guid whitePlayer, Guid blackPlayer)
+        {
+            GameId = Guid.NewGuid();
+            WhitePlayer = whitePlayer;
+            BlackPlayer = blackPlayer;
+            PGN = String.Empty;
+            FEN = Constants.StartingFEN;
+            DrawOffered = false;
+            CurrentGameState = GameState.STILL_PLAYING;
+        }
     }
 }
