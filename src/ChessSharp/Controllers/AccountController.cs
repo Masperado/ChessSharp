@@ -37,6 +37,8 @@ namespace ChessSharp.Controllers
             _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
+        
+
         //
         // GET: /Account/Login
         [HttpGet]
@@ -63,7 +65,7 @@ namespace ChessSharp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Profile", "Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -107,6 +109,7 @@ namespace ChessSharp.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Username,
                                                  Email = model.Email,
+                                                 Elo = 1600
                                                  };
                 user.EmailConfirmed = true;
                 var result = await _userManager.CreateAsync(user, model.Password);
