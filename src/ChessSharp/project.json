@@ -1,7 +1,8 @@
-﻿{
+{
   "userSecretsId": "aspnet-ChessSharp-2dd84750-7980-4ff4-97b7-a48e3cdc1251",
 
   "dependencies": {
+    "Aspose.Diagram": "16.12.0",
     "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
