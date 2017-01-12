@@ -2,9 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<
+
 <div id="board" style="width: 400px"></div>
 <div id="buttons">
     <input type="button" id="startBtn" class="btn-primary" value="Start" />
     <input type="button" id="clearBtn" class="btn-danger" value="Clear" />
 </div>
+
+@section scripts
+{
+    <script src="js/chessboard-0.3.0.js"></script>
+    <script src="js/board.js"></script>
+}
