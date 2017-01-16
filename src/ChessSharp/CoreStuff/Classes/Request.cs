@@ -19,18 +19,19 @@ namespace ChessSharp.CoreStuff.Classes
         public string SenderId { get; set; }
         public ChessUser Sender { get; set; }
 
-        public Request(string senderId, string recieverId)
+        public Request(string senderId, string recieverId, ColorRequest colorRequest)
         {
             RequestId = Guid.NewGuid();
             SenderId = senderId;
             RecieverId = recieverId;
             TimeSent = DateTime.Now;
-            ColorRequest = ColorRequest.WHITE;
+            ColorRequest = colorRequest;
         }
 
         public Request()
         {
             
         }
+
     }
 }

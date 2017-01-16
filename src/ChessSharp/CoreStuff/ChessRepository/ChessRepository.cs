@@ -70,7 +70,20 @@ namespace ChessSharp.CoreStuff.ChessRepository
 
         public List<Request> GetSentRequests(string userId)
         {
-            return _context.ChessUsers.Find(userId).SentRequests;
+            try
+            {
+                var requests = _context.ChessUsers
+                .Where(cu => cu.UserId.Equals(userId))
+                .Include(cu => cu.SentRequests)
+                .FirstOrDefault()
+                .SentRequests;
+
+                return requests;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
         }
 
         public void AddNewPendingRequest(string userId, Request request)
@@ -89,9 +102,15 @@ namespace ChessSharp.CoreStuff.ChessRepository
 
         public void AddNewSentRequest(string userId, Request request)
         {
-            var user = _context.ChessUsers.Find(userId);
-            user.SentRequests.Add(request);
-            _context.SaveChanges();
+            var user = _context.ChessUsers
+                              .Where(cu => cu.UserId.Equals(userId))
+                              .Include(cu => cu.SentRequests)
+                              .FirstOrDefault();
+            if (user != null)
+            {
+                user.SentRequests.Add(request);
+                _context.SaveChanges();
+            }
         }
 
         public List<Game> GetAllUserGames(string userId)

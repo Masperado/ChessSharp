@@ -93,8 +93,15 @@ footer {
     
 }
 
-#container-requests {
+#container-pendingrequests {
     background-color: blue;
+    color: yellow;
+    height: 200px;
+    overflow: scroll;
+}
+
+#container-sentrequests {
+    background-color: green;
     color: yellow;
     height: 200px;
     overflow: scroll;
