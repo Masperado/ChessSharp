@@ -18,9 +18,9 @@ namespace ChessSharp.CoreStuff.ChessRepository
             return _context.ChessUsers.Where(cu => cu.Elo >= minElo && cu.Elo <= maxElo).ToList();
         }
 
-        public List<ChessUser> GetAllUsers()
+        public List<ChessUser> GetAllUsers(string userId)
         {
-            return _context.ChessUsers.ToList();
+            return _context.ChessUsers.Where(cu => !cu.UserId.Equals(userId)).ToList();
         }
 
         public void AddNewUser(string userId, string username)
@@ -28,7 +28,9 @@ namespace ChessSharp.CoreStuff.ChessRepository
             _context.ChessUsers.Add(new ChessUser
             {
                 UserId = userId,
-                Username = username
+                Username = username,
+                Elo=Constants.StartingElo
+                
             });
             _context.SaveChanges();
         }
@@ -70,7 +72,31 @@ namespace ChessSharp.CoreStuff.ChessRepository
 
         public List<Request> GetSentRequests(string userId)
         {
-            return _context.ChessUsers.Find(userId).SentRequests;
+            try
+            {
+                var requests = _context.ChessUsers
+                .Where(cu => cu.UserId.Equals(userId))
+                .Include(cu => cu.SentRequests)
+                .FirstOrDefault()
+                .SentRequests;
+
+                return requests;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+        }
+
+        public Request GetRequestByID(Guid requestId)
+        {
+            return _context.Requests.Find(requestId);
+        }
+
+        public void DeleteRequest(Request request)
+        {
+            _context.Requests.Remove(request);
+            _context.SaveChanges();
         }
 
         public void AddNewPendingRequest(string userId, Request request)
@@ -89,9 +115,15 @@ namespace ChessSharp.CoreStuff.ChessRepository
 
         public void AddNewSentRequest(string userId, Request request)
         {
-            var user = _context.ChessUsers.Find(userId);
-            user.SentRequests.Add(request);
-            _context.SaveChanges();
+            var user = _context.ChessUsers
+                              .Where(cu => cu.UserId.Equals(userId))
+                              .Include(cu => cu.SentRequests)
+                              .FirstOrDefault();
+            if (user != null)
+            {
+                user.SentRequests.Add(request);
+                _context.SaveChanges();
+            }
         }
 
         public List<Game> GetAllUserGames(string userId)

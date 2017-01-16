@@ -26,7 +26,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// Gets all users of this webapp.
         /// </summary>
         /// <returns>All users of this webapp</returns>
-        List<ChessUser> GetAllUsers();
+        List<ChessUser> GetAllUsers(string userId);
 
         /// <summary>
         /// Adds new user to database
@@ -71,6 +71,16 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// <param name="userId">User's id</param>
         /// <returns>All sent requests.</returns>
         List<Request> GetSentRequests(string userId);
+
+        /// <summary>
+        /// Todo make commentary
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <returns></returns>
+        Request GetRequestByID(Guid requestId);
+
+
+        void DeleteRequest(Request request);
 
         /// <summary>
         /// Adds new pending request to user.

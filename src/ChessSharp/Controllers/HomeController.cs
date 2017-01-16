@@ -26,9 +26,9 @@ namespace ChessSharp.Controllers
 
         public IActionResult Index()
         {
-            //if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
-              //  return RedirectToAction("Profile");
+                return RedirectToAction("Profile");
             }
             return View();
         }
@@ -36,14 +36,18 @@ namespace ChessSharp.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = _repository.GetUserById(await GetUserIdAsync());
-            var requests = _repository.GetPendingRequests(user.UserId);
-            var users = _repository.GetAllUsers();
+            var pendingRequests = _repository.GetPendingRequests(user.UserId).OrderByDescending(r=>r.TimeSent.Date).ThenBy(r=>r.TimeSent.TimeOfDay).ToList();
+            var sentRequests = _repository.GetSentRequests(user.UserId).OrderByDescending(r => r.TimeSent.Date).ThenBy(r => r.TimeSent.TimeOfDay).ToList();
+            var users = _repository.GetAllUsers(user.UserId);
             
             var model = new ProfilePageModel
             {
                 User = user,
                 Users = users,
-                PendingRequests = requests
+                PendingRequests = pendingRequests,
+                SentRequests = sentRequests,
+            
+
             };
             
             return View(model);
@@ -51,7 +55,7 @@ namespace ChessSharp.Controllers
 
         public IActionResult SendRequest(SendRequestModel requestModel)
         {
-            Request request = new Request(requestModel.SenderId, requestModel.ReceiverId);
+            Request request = new Request(requestModel.SenderId, requestModel.ReceiverId, requestModel.ColorRequest);
 
             _repository.AddNewPendingRequest(requestModel.ReceiverId, request);
             _repository.AddNewSentRequest(request.SenderId, request);
@@ -82,6 +86,21 @@ namespace ChessSharp.Controllers
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             return user.Id;
-        } 
+        }
+
+        public IActionResult AcceptRequest(Guid requestId)
+        {
+            //Todo implement this method
+            return RedirectToAction("Profile");
+        }
+
+        public IActionResult DeclineRequest(Guid requestId)
+        {
+            var request = _repository.GetRequestByID(requestId);
+            _repository.DeleteRequest(request);
+
+            return RedirectToAction("Profile");
+            
+        }
     }
 }
