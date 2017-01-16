@@ -88,7 +88,7 @@ footer {
     background-color: red;
     color: yellow;
     height: 200px;
-    overflow: scroll;
+    overflow: auto;
     margin-right: 50px;
     
 }
@@ -97,12 +97,13 @@ footer {
     background-color: blue;
     color: yellow;
     height: 200px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #container-sentrequests {
     background-color: green;
     color: yellow;
+    margin-top: 20px;
     height: 200px;
-    overflow: scroll;
+    overflow: auto;
 }

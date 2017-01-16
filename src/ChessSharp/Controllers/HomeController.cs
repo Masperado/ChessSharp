@@ -38,7 +38,7 @@ namespace ChessSharp.Controllers
             var user = _repository.GetUserById(await GetUserIdAsync());
             var pendingRequests = _repository.GetPendingRequests(user.UserId).OrderByDescending(r=>r.TimeSent.Date).ThenBy(r=>r.TimeSent.TimeOfDay).ToList();
             var sentRequests = _repository.GetSentRequests(user.UserId).OrderByDescending(r => r.TimeSent.Date).ThenBy(r => r.TimeSent.TimeOfDay).ToList();
-            var users = _repository.GetAllUsers();
+            var users = _repository.GetAllUsers(user.UserId);
             
             var model = new ProfilePageModel
             {
@@ -86,6 +86,21 @@ namespace ChessSharp.Controllers
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             return user.Id;
-        } 
+        }
+
+        public IActionResult AcceptRequest(Guid requestId)
+        {
+            //Todo implement this method
+            return RedirectToAction("Profile");
+        }
+
+        public IActionResult DeclineRequest(Guid requestId)
+        {
+            var request = _repository.GetRequestByID(requestId);
+            _repository.DeleteRequest(request);
+
+            return RedirectToAction("Profile");
+            
+        }
     }
 }

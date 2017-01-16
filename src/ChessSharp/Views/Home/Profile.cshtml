@@ -24,11 +24,13 @@
             <span id="time-sent">@request.TimeSent</span>
             <span id="request-color">@request.ColorRequest.ToString()</span>
             <span id="senderUsername">@request.Sender.Username</span>
+            <a class="bg-primary active" asp-action="AcceptRequest" asp-route-RequestId="@request.RequestId">Accept</a>
+            <a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Decline</a>
         </div>
     }
 </div>
 
-<div class="col-lg-5 " id="container-sentrequests">
+<div class="col-lg-3 " id="container-sentrequests">
     @foreach (var request in Model.User.SentRequests)
     {
         <div id="request">
@@ -39,6 +41,8 @@
         </div>
     }
 </div>
+
+
 
 
 

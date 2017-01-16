@@ -18,9 +18,9 @@ namespace ChessSharp.CoreStuff.ChessRepository
             return _context.ChessUsers.Where(cu => cu.Elo >= minElo && cu.Elo <= maxElo).ToList();
         }
 
-        public List<ChessUser> GetAllUsers()
+        public List<ChessUser> GetAllUsers(string userId)
         {
-            return _context.ChessUsers.ToList();
+            return _context.ChessUsers.Where(cu => !cu.UserId.Equals(userId)).ToList();
         }
 
         public void AddNewUser(string userId, string username)
@@ -28,7 +28,9 @@ namespace ChessSharp.CoreStuff.ChessRepository
             _context.ChessUsers.Add(new ChessUser
             {
                 UserId = userId,
-                Username = username
+                Username = username,
+                Elo=Constants.StartingElo
+                
             });
             _context.SaveChanges();
         }
@@ -84,6 +86,17 @@ namespace ChessSharp.CoreStuff.ChessRepository
             {
                 return null;
             }
+        }
+
+        public Request GetRequestByID(Guid requestId)
+        {
+            return _context.Requests.Find(requestId);
+        }
+
+        public void DeleteRequest(Request request)
+        {
+            _context.Requests.Remove(request);
+            _context.SaveChanges();
         }
 
         public void AddNewPendingRequest(string userId, Request request)
