@@ -3,7 +3,18 @@
 <h1>@Model.User.Username</h1>
 <h1>@Model.User.Elo</h1>
 
-<div id="container-requests">
+<div class=col-lg-5 id="container-profile">
+    @foreach (var appUser in Model.Users)
+    {
+        <div id="user">
+            <span id="username">@appUser.Username</span>
+            <span id="elo">@appUser.Elo</span>
+            <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId">Send request</a>
+        </div>
+    }
+</div>
+
+<div class="col-lg-5 "id="container-requests">
     @foreach (var request in Model.User.PendingRequests)
     {
         <div id="request">
@@ -15,16 +26,6 @@
     }
 </div>
 
-<div id="container-profile">
-    @foreach (var appUser in Model.Users)
-    {
-        <div id="user">
-            <span id="username">@appUser.Username</span>
-            <span id="elo">@appUser.Elo</span>
-            <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId">Send request</a>
-        </div>
-    }    
-</div>
 
 
 

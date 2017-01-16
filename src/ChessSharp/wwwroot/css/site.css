@@ -83,3 +83,19 @@ textarea {
 footer {
     float: right;
 }
+
+#container-profile {
+    background-color: red;
+    color: yellow;
+    height: 200px;
+    overflow: scroll;
+    margin-right: 50px;
+    
+}
+
+#container-requests {
+    background-color: blue;
+    color: yellow;
+    height: 200px;
+    overflow: scroll;
+}
