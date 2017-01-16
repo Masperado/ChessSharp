@@ -43,7 +43,7 @@ namespace ChessSharp.Controllers
             {
                 User = user,
                 Users = users,
-                Requests = requests
+                PendingRequests = requests
             };
             
             return View(model);

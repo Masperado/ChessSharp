@@ -9,7 +9,8 @@ namespace ChessSharp.Models.ProfileViewModels
     public class ProfilePageModel
     {
         public ChessUser User { get; set; }
-        public List<Request> Requests { get; set; }
+        public List<Request> PendingRequests { get; set; }
+        public List<Request> SentRequests { get; set; }
         public List<ChessUser> Users { get; set; }
     }
 }
