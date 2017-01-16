@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ChessSharp.CoreStuff.ChessRepository;
+using ChessSharp.CoreStuff.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,19 +24,22 @@ namespace ChessSharp.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IChessRepository _repository;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IChessRepository repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _repository = repository;
         }
 
         
@@ -109,9 +114,8 @@ namespace ChessSharp.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Username,
                                                  Email = model.Email,
-                                                 Elo = 1600
                                                  };
-                user.EmailConfirmed = true;
+                _repository.AddNewUser(user.Id, user.UserName);
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

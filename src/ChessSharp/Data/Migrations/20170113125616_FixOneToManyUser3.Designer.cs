@@ -8,9 +8,10 @@ using ChessSharp.Data;
 namespace ChessSharp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170113125616_FixOneToManyUser3")]
+    partial class FixOneToManyUser3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -23,7 +24,7 @@ namespace ChessSharp.Data.Migrations
 
                     b.Property<int>("ColorRequest");
 
-                    b.Property<string>("RecieverId");
+                    b.Property<string>("ReceiverId");
 
                     b.Property<string>("SenderId");
 
@@ -31,9 +32,7 @@ namespace ChessSharp.Data.Migrations
 
                     b.HasKey("RequestId");
 
-                    b.HasIndex("RecieverId");
-
-                    b.HasIndex("SenderId");
+                    b.HasIndex("ReceiverId");
 
                     b.ToTable("Request");
                 });
@@ -198,13 +197,9 @@ namespace ChessSharp.Data.Migrations
 
             modelBuilder.Entity("ChessSharp.CoreStuff.Classes.Request", b =>
                 {
-                    b.HasOne("ChessSharp.Models.ApplicationUser", "Reciever")
+                    b.HasOne("ChessSharp.Models.ApplicationUser", "Receiver")
                         .WithMany("PendingRequests")
-                        .HasForeignKey("RecieverId");
-
-                    b.HasOne("ChessSharp.Models.ApplicationUser", "Sender")
-                        .WithMany("SentRequests")
-                        .HasForeignKey("SenderId");
+                        .HasForeignKey("ReceiverId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

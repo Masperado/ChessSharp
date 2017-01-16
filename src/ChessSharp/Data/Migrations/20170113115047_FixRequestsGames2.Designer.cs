@@ -8,9 +8,10 @@ using ChessSharp.Data;
 namespace ChessSharp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170113115047_FixRequestsGames2")]
+    partial class FixRequestsGames2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -23,17 +24,17 @@ namespace ChessSharp.Data.Migrations
 
                     b.Property<int>("ColorRequest");
 
-                    b.Property<string>("RecieverId");
-
-                    b.Property<string>("SenderId");
+                    b.Property<string>("RequestingUserId");
 
                     b.Property<DateTime>("TimeSent");
 
+                    b.Property<string>("UserSentToId");
+
                     b.HasKey("RequestId");
 
-                    b.HasIndex("RecieverId");
+                    b.HasIndex("RequestingUserId");
 
-                    b.HasIndex("SenderId");
+                    b.HasIndex("UserSentToId");
 
                     b.ToTable("Request");
                 });
@@ -87,6 +88,34 @@ namespace ChessSharp.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("ChessSharp.Models.Game", b =>
+                {
+                    b.Property<Guid>("GameId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<Guid>("BlackPlayer");
+
+                    b.Property<int>("CurrentGameState");
+
+                    b.Property<bool>("DrawOffered");
+
+                    b.Property<string>("FEN");
+
+                    b.Property<DateTime>("GameDate");
+
+                    b.Property<string>("PGN");
+
+                    b.Property<Guid>("WhitePlayer");
+
+                    b.HasKey("GameId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Game");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -198,13 +227,20 @@ namespace ChessSharp.Data.Migrations
 
             modelBuilder.Entity("ChessSharp.CoreStuff.Classes.Request", b =>
                 {
-                    b.HasOne("ChessSharp.Models.ApplicationUser", "Reciever")
-                        .WithMany("PendingRequests")
-                        .HasForeignKey("RecieverId");
-
-                    b.HasOne("ChessSharp.Models.ApplicationUser", "Sender")
+                    b.HasOne("ChessSharp.Models.ApplicationUser", "RequestingUser")
                         .WithMany("SentRequests")
-                        .HasForeignKey("SenderId");
+                        .HasForeignKey("RequestingUserId");
+
+                    b.HasOne("ChessSharp.Models.ApplicationUser", "UserSentTo")
+                        .WithMany("PendingRequests")
+                        .HasForeignKey("UserSentToId");
+                });
+
+            modelBuilder.Entity("ChessSharp.Models.Game", b =>
+                {
+                    b.HasOne("ChessSharp.Models.ApplicationUser")
+                        .WithMany("AllGames")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

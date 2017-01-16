@@ -12,8 +12,8 @@ namespace ChessSharp.Models
     {
         public Guid GameId { get; set; }
 
-        public Guid WhitePlayer { get; set; }
-        public Guid BlackPlayer { get; set; }
+        public string WhitePlayerId { get; set; }
+        public string BlackPlayerId { get; set; }
 
         public DateTime GameDate { get; set; }
 
@@ -39,15 +39,20 @@ namespace ChessSharp.Models
         /// </summary>
         public GameState CurrentGameState { get; set; }
 
-        public Game(Guid whitePlayer, Guid blackPlayer)
+        public Game(string whitePlayer, string blackPlayer)
         {
             GameId = Guid.NewGuid();
-            WhitePlayer = whitePlayer;
-            BlackPlayer = blackPlayer;
+            WhitePlayerId = whitePlayer;
+            BlackPlayerId = blackPlayer;
             PGN = String.Empty;
             FEN = Constants.StartingFEN;
             DrawOffered = false;
             CurrentGameState = GameState.STILL_PLAYING;
+        }
+
+        public Game()
+        {
+            
         }
     }
 }

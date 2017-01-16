@@ -2,30 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChessSharp.Models;
 
-namespace ChessSharp.Models
+namespace ChessSharp.CoreStuff.Classes
 {
-    public class User
+    public class ChessUser
     {
-
-        public Guid Id { get; set; }
-
-        public String Username { get; set; }
+        /// <summary>
+        /// Type is string beacuse the ASP.net Identity uses string as it's type for Id.
+        /// </summary>
+        public string UserId { get; set; }
 
         /// <summary>
-        /// Elo is rating commonly used in chess world to determine the player's strength
+        /// Username for the user.
+        /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
+        /// Integer used to determine the strength of a player.
         /// </summary>
         public int Elo { get; set; }
 
-        public List<Guid> GameHistory { get; set; }
+        /// <summary>
+        /// All the requests for new game that this user has recieved.
+        /// </summary>
+        public List<Request> PendingRequests { get; set; }
 
-        public User(string username)
-        {
-            Id = Guid.NewGuid();
-            Username = username;
-            Elo = Constants.StartingElo;
-        }
+        /// <summary>
+        /// All the requests that this user has sent.
+        /// </summary>
+        public List<Request> SentRequests { get; set; }
 
-       
+        /// <summary>
+        /// All the games this user has played.
+        /// </summary>
+        public List<Game> GamesHistory { get; set; }
+
+
+        
     }
 }
