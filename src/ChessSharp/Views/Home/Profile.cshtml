@@ -1,5 +1,9 @@
 ﻿@model ChessSharp.Models.ProfileViewModels.ProfilePageModel
 
+@{
+    ViewData["Title"] = "Profile: " + Model.User.Username;
+}
+
 <h1>@Model.User.Username</h1>
 <h1>@Model.User.Elo</h1>
 
@@ -16,11 +20,11 @@
     }
 </div>
 
-<div class="col-lg-5 "id="container-pendingrequests">
+<div class="col-lg-5 " id="container-pendingrequests">
     @foreach (var request in Model.User.PendingRequests)
     {
         <div id="request">
-            
+
             <span id="time-sent">@request.TimeSent</span>
             <span id="request-color">@request.ColorRequest.ToString()</span>
             <span id="senderUsername">@request.Sender.Username</span>
@@ -45,11 +49,25 @@
 
 
 <div class="col-lg-6" id="container-games">
-    @foreach (var game in Model.Games)
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
     {
         <div id="game">
-            <span id="whitePlayer">@game.WhitePlayer.Username</span>
-            <span id="blackPlayer">@game.BlackPlayer.Username</span>
+            <a asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">
+                <span id="whitePlayer">@game.WhitePlayer.Username</span>
+                <span id="blackPlayer">@game.BlackPlayer.Username</span>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="col-lg-6" id="container-fingames">
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState != GameState.STILL_PLAYING))
+    {
+        <div id="game">
+            <a asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">
+                <span id="whitePlayer">@game.WhitePlayer.Username</span>
+                <span id="blackPlayer">@game.BlackPlayer.Username</span>
+            </a>
         </div>
     }
 </div>

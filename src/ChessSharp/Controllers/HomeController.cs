@@ -8,6 +8,7 @@ using ChessSharp.CoreStuff.Classes;
 using ChessSharp.Data;
 using ChessSharp.Models;
 using ChessSharp.Models.ProfileViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,7 @@ namespace ChessSharp.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var user = _repository.GetUserById(await GetUserIdAsync());
@@ -54,6 +56,7 @@ namespace ChessSharp.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult SendRequest(SendRequestModel requestModel)
         {
             Request request = new Request(requestModel.SenderId, requestModel.ReceiverId, requestModel.ColorRequest);
@@ -64,6 +67,7 @@ namespace ChessSharp.Controllers
             return RedirectToAction("Profile");
         }
 
+        
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -83,15 +87,17 @@ namespace ChessSharp.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<string> GetUserIdAsync()
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             return user.Id;
         }
 
+        [Authorize]
         public IActionResult AcceptRequest(Guid requestId)
         {
-            var request = _repository.GetRequestByID(requestId);
+            var request = _repository.GetRequestById(requestId);
 
             Game newGame;
             if (request.ColorRequest == ColorRequest.BLACK)
@@ -127,9 +133,10 @@ namespace ChessSharp.Controllers
             return RedirectToAction("Profile");
         }
 
+        [Authorize]
         public IActionResult DeclineRequest(Guid requestId)
         {
-            var request = _repository.GetRequestByID(requestId);
+            var request = _repository.GetRequestById(requestId);
             _repository.DeleteRequest(request);
 
             return RedirectToAction("Profile");

@@ -14,9 +14,9 @@ namespace ChessSharp.CoreStuff.ChessRepository
         private readonly ChessSharpDbContext _context;
 
 
-        public List<ChessUser> GetUsersBasedOnElo(int minElo, int maxElo)
+        public List<ChessUser> GetUsersBasedOnElo(string userId, int minElo, int maxElo)
         {
-            return _context.ChessUsers.Where(cu => cu.Elo >= minElo && cu.Elo <= maxElo).ToList();
+            return GetAllUsers(userId).Where(cu => cu.Elo >= minElo && cu.Elo <= maxElo).ToList();
         }
 
         public List<ChessUser> GetAllUsers(string userId)
@@ -89,7 +89,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
             }
         }
 
-        public Request GetRequestByID(Guid requestId)
+        public Request GetRequestById(Guid requestId)
         {
             return _context.Requests.Find(requestId);
         }
@@ -104,6 +104,8 @@ namespace ChessSharp.CoreStuff.ChessRepository
         {
             return _context.Games.Where(filterFunc).ToList();
         }
+
+
 
         public void AddNewPendingRequest(string userId, Request request)
         {
@@ -152,6 +154,24 @@ namespace ChessSharp.CoreStuff.ChessRepository
                 gamesHistory = gamesHistory.OrderByDescending(g => g.GameDate).ToList();
 
                 return gamesHistory;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
+        }
+
+        public Game GetGameById(Guid gameId)
+        {
+            try
+            {
+                var game = _context.Games
+                    .Where(g => g.GameId.Equals(gameId))
+                    .Include(g => g.WhitePlayer)
+                    .Include(g => g.BlackPlayer)
+                    .FirstOrDefault();
+
+                return game;
             }
             catch (NullReferenceException ex)
             {

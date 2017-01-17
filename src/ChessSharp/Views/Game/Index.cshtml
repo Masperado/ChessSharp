@@ -1,0 +1,31 @@
+﻿@model Game
+
+
+
+<h1>@Model.WhitePlayer.Username</h1>
+<h2>vs</h2>
+<h1>@Model.BlackPlayer.Username</h1>
+
+
+<div id="board-system">
+    <div id="board" style="width: 400px"></div>
+</div>
+
+
+
+<p>Status: <span id="status"></span></p>
+
+
+
+<div id="invisibleStuff">
+    <p>FEN: <span id="fen">@Model.FEN</span></p>
+    <p>PGN: <span id="pgn">@Model.PGN</span></p>
+</div>
+
+@section scripts
+{
+    <script src="~/js/chessboard-0.3.0.min.js"></script>
+    <script src="~/js/chessLegal.js"></script>
+    <script src="js/chess.js"></script>
+}
+

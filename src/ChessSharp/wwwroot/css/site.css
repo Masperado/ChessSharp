@@ -115,3 +115,11 @@ footer {
     height: 200px;
     overflow: auto; 
 }
+
+#container-fingames {
+    background-color: cyan;
+    height: 200px;
+    overflow: auto;
+
+}
+

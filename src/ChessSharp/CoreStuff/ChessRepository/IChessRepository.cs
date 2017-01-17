@@ -20,7 +20,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// <param name="minElo">Minimal elo a player has to have</param>
         /// <param name="maxElo">Maximum elo a player has to have</param>
         /// <returns>All users that satisfy the criteria given.</returns>
-        List<ChessUser> GetUsersBasedOnElo(int minElo, int maxElo);
+        List<ChessUser> GetUsersBasedOnElo(string userId, int minElo, int maxElo);
 
         /// <summary>
         /// Gets all users of this webapp.
@@ -77,7 +77,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// </summary>
         /// <param name="requestId">Request's Id.</param>
         /// <returns>Request with that Id.</returns>
-        Request GetRequestByID(Guid requestId);
+        Request GetRequestById(Guid requestId);
 
         /// <summary>
         /// Deletes request
@@ -112,6 +112,8 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// <param name="userId"></param>
         /// <returns>All user's games.</returns>
         List<Game> GetAllUserGames(string userId);
+
+        Game GetGameById(Guid gameId);
 
         /// <summary>
         /// Creates new game between two players.
