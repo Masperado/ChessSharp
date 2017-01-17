@@ -11,7 +11,7 @@ namespace ChessSharp.Models.ProfileViewModels
         public ChessUser User { get; set; }
         public List<Request> PendingRequests { get; set; }
         public List<Request> SentRequests { get; set; }
-
+        public List<Game> Games { get; set; }
         public List<ChessUser> Users { get; set; }
     }
 }

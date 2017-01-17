@@ -38,6 +38,8 @@ namespace ChessSharp.Controllers
             var user = _repository.GetUserById(await GetUserIdAsync());
             var pendingRequests = _repository.GetPendingRequests(user.UserId).OrderByDescending(r=>r.TimeSent.Date).ThenBy(r=>r.TimeSent.TimeOfDay).ToList();
             var sentRequests = _repository.GetSentRequests(user.UserId).OrderByDescending(r => r.TimeSent.Date).ThenBy(r => r.TimeSent.TimeOfDay).ToList();
+            var games =
+                _repository.GetAllUserGames(user.UserId);
             var users = _repository.GetAllUsers(user.UserId);
             
             var model = new ProfilePageModel
@@ -46,8 +48,7 @@ namespace ChessSharp.Controllers
                 Users = users,
                 PendingRequests = pendingRequests,
                 SentRequests = sentRequests,
-            
-
+                Games = games
             };
             
             return View(model);
@@ -90,7 +91,39 @@ namespace ChessSharp.Controllers
 
         public IActionResult AcceptRequest(Guid requestId)
         {
-            //Todo implement this method
+            var request = _repository.GetRequestByID(requestId);
+
+            Game newGame;
+            if (request.ColorRequest == ColorRequest.BLACK)
+            {
+                //Sender wants to play black.
+                newGame = new Game(request.RecieverId, request.SenderId);
+            }
+
+            else if (request.ColorRequest == ColorRequest.WHITE)
+            {
+                //Sender wants to play white.
+                newGame = new Game(request.SenderId, request.RecieverId);
+            }
+            else
+            {
+                int deciderRand = new Random().Next(0, 2);
+
+                if (deciderRand == 0)
+                {
+                    //decide at random, here sender will play black.
+                    newGame = new Game(request.RecieverId, request.SenderId);
+                }
+
+                else
+                {
+                    //here sender will play white
+                    newGame = new Game(request.SenderId, request.RecieverId);
+                }
+            }
+            _repository.CreateNewGame(newGame);
+            _repository.DeleteRequest(request);
+
             return RedirectToAction("Profile");
         }
 

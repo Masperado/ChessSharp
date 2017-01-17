@@ -34,9 +34,14 @@ namespace ChessSharp.CoreStuff.Classes
         public List<Request> SentRequests { get; set; }
 
         /// <summary>
-        /// All the games this user has played.
+        /// All the games this user has played as white.
         /// </summary>
-        public List<Game> GamesHistory { get; set; }
+        public List<Game> GamesHistoryAsWhite { get; set; }
+
+        /// <summary>
+        /// All the games this user has played as black.
+        /// </summary>
+        public List<Game> GamesHistoryAsBlack { get; set; }
 
 
         

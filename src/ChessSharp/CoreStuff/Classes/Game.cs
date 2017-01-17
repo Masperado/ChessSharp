@@ -2,32 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChessSharp.CoreStuff.Classes;
 
 namespace ChessSharp.Models
 {
     /// <summary>
-    /// This class will be used to store all the games played on the website
+    /// This class will be used as model for storage of all the games played on the website
     /// </summary>
     public class Game
     {
         public Guid GameId { get; set; }
 
         public string WhitePlayerId { get; set; }
+        public ChessUser WhitePlayer { get; set; }
+
         public string BlackPlayerId { get; set; }
+        public ChessUser BlackPlayer { get; set; }
 
         public DateTime GameDate { get; set; }
 
         /// <summary>
         /// This string represents list of moves played in game in respective order.
         /// </summary>
-        public String PGN { get; set; }
+        public string PGN { get; set; }
 
         /// <summary>
         /// This string determines the current status of chessboard(location of chess pieces).
         /// Also represents info about legal castlings, enpassants...
         /// Useful for chessboard which was imported.
         /// </summary>
-        public String FEN { get; set; }
+        public string FEN { get; set; }
 
         /// <summary>
         /// This class member determines if draw has been offered by one of the players.

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ChessSharp.CoreStuff.Classes;
 using ChessSharp.Models;
 using System.Data.Entity;
+using ChessSharp.Data;
 
 namespace ChessSharp.CoreStuff.ChessRepository
 {
@@ -99,6 +100,11 @@ namespace ChessSharp.CoreStuff.ChessRepository
             _context.SaveChanges();
         }
 
+        public List<Game> GetFilteredGames(Func<Game, bool> filterFunc)
+        {
+            return _context.Games.Where(filterFunc).ToList();
+        }
+
         public void AddNewPendingRequest(string userId, Request request)
         {
             var user = _context.ChessUsers
@@ -128,13 +134,51 @@ namespace ChessSharp.CoreStuff.ChessRepository
 
         public List<Game> GetAllUserGames(string userId)
         {
-            return _context.ChessUsers.Find(userId).GamesHistory;
+            try
+            {
+                var gamesHistoryAsWhite = _context.ChessUsers
+                    .Where(cu => cu.UserId.Equals(userId))
+                    .Include(cu => cu.GamesHistoryAsWhite)
+                    .FirstOrDefault()
+                    .GamesHistoryAsWhite;
+                var gamesHistoryAsBlack = _context.ChessUsers
+                    .Where(cu => cu.UserId.Equals(userId))
+                    .Include(cu => cu.GamesHistoryAsBlack)
+                    .FirstOrDefault()
+                    .GamesHistoryAsBlack;
+
+                var gamesHistory = new List<Game>(gamesHistoryAsWhite);
+                gamesHistory.AddRange(gamesHistoryAsBlack);
+                gamesHistory = gamesHistory.OrderByDescending(g => g.GameDate).ToList();
+
+                return gamesHistory;
+            }
+            catch (NullReferenceException ex)
+            {
+                return null;
+            }
         }
 
-        public void CreateNewGame(string whitePlayerId, string blackPlayerId)
+        public void CreateNewGame(Game newGame)
         {
-            _context.Games.Add(new Game(whitePlayerId, blackPlayerId));
-            _context.SaveChanges();
+            //Add game to whitePlayer's whitegames, and to blackPlayer's black games
+            var whitePlayer = _context.ChessUsers
+                              .Where(cu => cu.UserId.Equals(newGame.WhitePlayerId))
+                              .Include(cu => cu.GamesHistoryAsWhite)
+                              .FirstOrDefault();
+            if (whitePlayer != null)
+            {
+                whitePlayer.GamesHistoryAsWhite.Add(newGame);
+            }
+
+            var blackPlayer = _context.ChessUsers
+                              .Where(cu => cu.UserId.Equals(newGame.BlackPlayerId))
+                              .Include(cu => cu.GamesHistoryAsBlack)
+                              .FirstOrDefault();
+            if (blackPlayer != null)
+            {
+                blackPlayer.GamesHistoryAsBlack.Add(newGame);
+            }
         }
 
         public ChessRepository(ChessSharpDbContext context)

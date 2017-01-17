@@ -73,14 +73,24 @@ namespace ChessSharp.CoreStuff.ChessRepository
         List<Request> GetSentRequests(string userId);
 
         /// <summary>
-        /// Todo make commentary
+        /// Gets  request by its Id.
         /// </summary>
-        /// <param name="requestId"></param>
-        /// <returns></returns>
+        /// <param name="requestId">Request's Id.</param>
+        /// <returns>Request with that Id.</returns>
         Request GetRequestByID(Guid requestId);
 
-
+        /// <summary>
+        /// Deletes request
+        /// </summary>
+        /// <param name="request"></param>
         void DeleteRequest(Request request);
+
+        /// <summary>
+        /// Gets all games that satisfy filter criteria.
+        /// </summary>
+        /// <param name="filterFunc">The filter criteria.</param>
+        /// <returns>Games that satisfy filter criteria.</returns>
+        List<Game> GetFilteredGames(Func<Game, bool> filterFunc);
 
         /// <summary>
         /// Adds new pending request to user.
@@ -108,7 +118,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// </summary>
         /// <param name="whitePlayerId">Player1 id</param>
         /// <param name="blackPlayerId">Player2 id</param>
-        void CreateNewGame(string whitePlayerId, string blackPlayerId);
+        void CreateNewGame(Game newGame);
 
 
 

@@ -39,7 +39,7 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc":  {
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
     }
@@ -60,7 +60,7 @@
   },
 
   "frameworks": {
-    "net452": { }
+    "net452": {}
   },
 
   "buildOptions": {
@@ -77,8 +77,14 @@
     ]
   },
 
+  "commands": {
+    "ef": "EntityFramework.Commands"
+  },
+
   "scripts": {
     "prepublish": [ "bower install", "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
+
+
 }

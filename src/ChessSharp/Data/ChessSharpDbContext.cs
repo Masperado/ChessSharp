@@ -6,7 +6,7 @@ using System.Data.Entity;
 using ChessSharp.CoreStuff.Classes;
 using ChessSharp.Models;
 
-namespace ChessSharp.CoreStuff
+namespace ChessSharp.Data
 {
     public class ChessSharpDbContext : DbContext
     {
@@ -30,6 +30,14 @@ namespace ChessSharp.CoreStuff
             modelBuilder.Entity<Request>().HasKey(r => r.RequestId);
 
             modelBuilder.Entity<Game>().HasKey(g => g.GameId);
+            modelBuilder.Entity<Game>()
+                .HasRequired(g => g.BlackPlayer)
+                .WithMany(cu => cu.GamesHistoryAsBlack)
+                .HasForeignKey(g => g.BlackPlayerId);
+            modelBuilder.Entity<Game>()
+                .HasRequired(g => g.WhitePlayer)
+                .WithMany(cu => cu.GamesHistoryAsWhite)
+                .HasForeignKey(g => g.WhitePlayerId);
         }
     }
 }

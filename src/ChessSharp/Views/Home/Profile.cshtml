@@ -38,10 +38,21 @@
             <span id="time-sent">@request.TimeSent</span>
             <span id="request-color">@request.ColorRequest.ToString()</span>
             <span id="senderUsername">@request.Reciever.Username</span>
+            <a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Cancel request</a>
         </div>
     }
 </div>
 
+
+<div class="col-lg-6" id="container-games">
+    @foreach (var game in Model.Games)
+    {
+        <div id="game">
+            <span id="whitePlayer">@game.WhitePlayer.Username</span>
+            <span id="blackPlayer">@game.BlackPlayer.Username</span>
+        </div>
+    }
+</div>
 
 
 
