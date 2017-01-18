@@ -1,15 +1,22 @@
 ﻿$.getScript("js/chess.js",
-    function() {
+    function () {
+        var madeMove = false;
+
         var board,
+            boardEl = $("#board");
             game = new Chess(),
+            squareClass = "square-55d63",
+            moveHistory = 0,
             statusEl = $("#status"),
+            squareToHighlight = 0,
+            colorToHighlight = 0,
             fenEl = $("#fen"),
             pgnEl = $("#pgn");
 
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
         var onDragStart = function(source, piece, position, orientation) {
-            if (game.game_over() === true ||
+            if (game.game_over() === true || madeMove === true || 
                 (game.turn() === "w" && piece.search(/^b/) !== -1) ||
                 (game.turn() === "b" && piece.search(/^w/) !== -1)) {
                 return false;
@@ -34,6 +41,7 @@
 // for castling, en passant, pawn promotion
         var onSnapEnd = function() {
             board.position(game.fen());
+            madeMove = true;
         };
 
         var updateStatus = function() {
@@ -62,14 +70,18 @@
                 }
             }
 
-            statusEl.html(status);
-            fenEl.html(game.fen());
+            
+
+            //statusEl.html(statu
+            $("#fen").html(game.fen());
             pgnEl.html(game.pgn());
+
+            
         };
 
         var cfg = {
             draggable: true,
-            position: "start",
+            position: $("#fen").text(),
             onDragStart: onDragStart,
             onDrop: onDrop,
             onSnapEnd: onSnapEnd
@@ -77,4 +89,19 @@
         board = ChessBoard("board", cfg);
 
         updateStatus();
-    });
+
+
+
+        var cancelMove = function() {
+            game.undo();
+            board.position(game.fen());
+            $("#fen").html(game.fen());
+            $("#pgn").html(game.pgn());
+
+            madeMove = false;
+
+        };
+
+        $("#cancel-button").on("click", cancelMove);
+
+});

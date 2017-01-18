@@ -27,5 +27,10 @@ namespace ChessSharp.Controllers
 
             return View(game);
         }
+
+        public IActionResult SubmitMove()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
