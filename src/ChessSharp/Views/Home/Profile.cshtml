@@ -7,48 +7,51 @@
 <h1>@Model.User.Username</h1>
 <h1>@Model.User.Elo</h1>
 
-<div class="col-lg-5" id="container-profile">
+<div class="col-xs-6 my-containers" id="container-profile">
+    <div class="col-xs-2 header">USERNAME</div>
+    <div class="col-xs-2 header">&nbsp;&nbsp;&nbsp;ELO</div>
+    <div class="col-xs-12" style="height: 3px;"></div>
     @foreach (var appUser in Model.Users)
     {
-        <div id="user">
-            <span id="username">@appUser.Username</span>
-            <span id="elo">@appUser.Elo</span>
+        <div class="col-xs-2" id="username">@appUser.Username</div>
+        <div class="col-xs-2" id="elo">&nbsp; &nbsp; &nbsp;@appUser.Elo</div>
+        <div class="col-xs-4">
             <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId" asp-route-ColorRequest="white">Send request as white</a>
-            <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId" asp-route-ColorRequest="black">Send request as black</a>
-
         </div>
+        <div class="col-xs-4">
+            <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId" asp-route-ColorRequest="black">Send request as black</a>
+        </div>
+        <div class="col-xs-12" style="height: 6px;"></div>
     }
 </div>
 
-<div class="col-lg-5 " id="container-pendingrequests">
+<div class="col-xs-6 my-containers" id="container-pendingrequests">
+    <div class="col-xs-4 header">REQUEST</div>
+    <div class="col-xs-4 header">TIME SENT</div>
+    <div class="col-xs-12" style="height: 3px;"></div>
     @foreach (var request in Model.User.PendingRequests)
     {
-        <div id="request">
-
-            <span id="time-sent">@request.TimeSent</span>
-            <span id="request-color">@request.ColorRequest.ToString()</span>
-            <span id="senderUsername">@request.Sender.Username</span>
-            <a class="bg-primary active" asp-action="AcceptRequest" asp-route-RequestId="@request.RequestId">Accept</a>
-            <a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Decline</a>
+        <div class="col-xs-4" id="senderUsername">@request.Sender.Username wants to play as @request.ColorRequest.ToString() </div>
+        <div class="col-xs-4" id="time-sent">@request.TimeSent</div>
+        <div class="col-xs-2"><a class="bg-primary active" asp-action="AcceptRequest" asp-route-RequestId="@request.RequestId">Accept</a>
         </div>
+        <div class="col-xs-2"><a class="btn-danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Decline</a>
+        </div>
+        <div class="col-xs-12" style="height: 3px;"></div>
     }
 </div>
-
-<div class="col-lg-3 " id="container-sentrequests">
+<div class="col-xs-4 my-containers" id="container-sentrequests">
     @foreach (var request in Model.User.SentRequests)
     {
-        <div id="request">
-
-            <span id="time-sent">@request.TimeSent</span>
-            <span id="request-color">@request.ColorRequest.ToString()</span>
-            <span id="senderUsername">@request.Reciever.Username</span>
-            <a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Cancel request</a>
-        </div>
+        <div class="col-xs-4" id="senderUsername">You want to play @request.Reciever.Username as @request.ColorRequest.ToString()</div>
+        <div class="col-xs-4" id="time-sent">@request.TimeSent</div>
+        <div class="col-xs-4"><a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Cancel request</a></div>
+        <div class="col-xs-12" style="height: 3px;"></div>
     }
 </div>
 
 
-<div class="col-lg-6" id="container-games">
+<div class="col-xs-4 my-containers" id="container-games">
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
     {
         <div id="game">
@@ -60,7 +63,7 @@
     }
 </div>
 
-<div class="col-lg-6" id="container-fingames">
+<div class="col-xs-4 my-containers" id="container-fingames">
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState != GameState.STILL_PLAYING))
     {
         <div id="game">
