@@ -7,7 +7,7 @@
 <h1>@Model.User.Username</h1>
 <h1>@Model.User.Elo</h1>
 
-<div class="col-lg-5" id="container-profile">
+<div class="col-lg-6 my-containers" id="container-profile">
     @foreach (var appUser in Model.Users)
     {
         <div id="user">
@@ -20,7 +20,7 @@
     }
 </div>
 
-<div class="col-lg-5 " id="container-pendingrequests">
+<div class="col-lg-6 my-containers"  id="container-pendingrequests">
     @foreach (var request in Model.User.PendingRequests)
     {
         <div id="request">
@@ -33,8 +33,7 @@
         </div>
     }
 </div>
-
-<div class="col-lg-3 " id="container-sentrequests">
+<div class="col-lg-4 my-containers" id="container-sentrequests">
     @foreach (var request in Model.User.SentRequests)
     {
         <div id="request">
@@ -48,7 +47,7 @@
 </div>
 
 
-<div class="col-lg-6" id="container-games">
+<div class="col-lg-4 my-containers" id="container-games">
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
     {
         <div id="game">
@@ -60,7 +59,7 @@
     }
 </div>
 
-<div class="col-lg-6" id="container-fingames">
+<div class="col-lg-4 my-containers" id="container-fingames">
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState != GameState.STILL_PLAYING))
     {
         <div id="game">
