@@ -3,20 +3,27 @@
 
 
 
-<h1>@Model.WhitePlayer.Username</h1>
-<h2>vs</h2>
-<h1>@Model.BlackPlayer.Username</h1>
+<h1>@Model.WhitePlayer.Username vs @Model.BlackPlayer.Username</h1>
 
+<div id="board" style="width: 400px"></div>
+<br/>
 
 <div id="board-system">
-    <div id="board" style="width: 400px"></div>
-    <button id="submit-button" asp-action="SubmitMove" asp-route-FEN="" asp-route-PGN="">Submit</button>
-    <button id="cancel-button">Cancel</button>
+    <button class="bg-primary active" id="submit-button" asp-action="SubmitMove" asp-route-FEN="" asp-route-PGN="">Submit</button>
+    <button class="bg-primary active" id="cancel-button">Cancel</button>
+    <button class="bg-primary active" id="resign">Resign</button>
+    <button class="bg-primary active" id="Offer draw">Offer draw</button>
+    <button class="bg-primary active" id="Abort">Abort</button>
+    <button class="bg-primary active" id="Accept draw">Accept draw</button>
+
+
+
 </div>
 
 
-
-<p>Status: <span id="status"></span></p>
+<br/>
+<br/>
+<div>Status: <span id="status"></span></div>
 
 
 

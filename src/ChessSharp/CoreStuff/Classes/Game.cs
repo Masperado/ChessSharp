@@ -58,5 +58,21 @@ namespace ChessSharp.Models
         {
             
         }
+
+
+        public string gameState()
+        {
+            if (CurrentGameState.Equals(GameState.STILL_PLAYING)) return "%";
+            else if(CurrentGameState.Equals(GameState.ABORTED)) return "&";
+            else if (CurrentGameState.Equals(GameState.WHITE_WINS)) return "1-0";
+            else if (CurrentGameState.Equals(GameState.DRAW)) return "0.5-0.5";
+            else return "0-1";
+
+
+
+
+
+
+        }
     }
 }

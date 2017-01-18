@@ -1,4 +1,6 @@
-﻿namespace ChessSharp.Models
+﻿using System.Runtime.Remoting.Messaging;
+
+namespace ChessSharp.Models
 {
     /// <summary>
     /// This enum determines the state of the current chess game.
@@ -10,5 +12,9 @@
         DRAW,
         ABORTED,
         STILL_PLAYING
+
     }
+
+
+    
 }

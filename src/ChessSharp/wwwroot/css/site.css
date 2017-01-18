@@ -1,8 +1,12 @@
-﻿
+﻿* {
+    font-family: 'Kalam', cursive;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #e6f9ff;
+
 }
 
 h1 {
@@ -85,7 +89,9 @@ footer {
 }
 
 .my-containers {
+    border-radius: 25px;
     border: 10px solid #e6f9ff;
+    background: 0.5;
     height: 200px;
     overflow: auto;
     padding: 10px;
@@ -95,10 +101,18 @@ footer {
     font-size: 0.9vw;
 }
 
+a {
+    padding: 0px 2px 0px 2px;
+}
+
 .my-containers .header {
     font-size: 1.1vw;
     color: white;
 
+}
+
+.my-containers.second-row {
+    font-size: 0.7vw;
 }
 #container-profile {
     background-color: red;
@@ -117,11 +131,16 @@ footer {
 }
 
 #container-games {
-    background-color: pink;
-    color: purple;
+    background-color: brown;
+    color: yellow;
 }
 
 #container-fingames {
-    background-color: cyan;
-    color: crimson;
+    background-color:olive;
+    color: yellow;
+}
+
+
+#board-system {
+    float: right;
 }
