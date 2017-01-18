@@ -91,6 +91,14 @@ footer {
     padding: 10px;
     font-family: 'Kalam', cursive;
     font-size: 20px;
+    text-align: center;
+    font-size: 0.9vw;
+}
+
+.my-containers .header {
+    font-size: 1.1vw;
+    color: white;
+
 }
 #container-profile {
     background-color: red;
