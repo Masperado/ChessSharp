@@ -5,7 +5,7 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #e6f9ff;
+    background-color: #e2caa9;
 
 }
 
@@ -27,9 +27,6 @@ h1 {
     text-align: center;
 }
 
-#startBtn, #clearBtn {
-    border-radius: 4px;
-}
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
@@ -72,25 +69,26 @@ textarea {
 
 
 #navbar1 {
-    background-color: yellow;
+    background-color: #763a3a;
  }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: red;
+    color: #e2caa9;
 }
 
 .navbar-inverse .navbar-brand {
-    color: red;
+    color:#e2caa9 ;
 }
 
 footer {
     clear: both;
     float: right;
+    margin-top: 2vw;
 }
 
 .my-containers {
     border-radius: 25px;
-    border: 10px solid #e6f9ff;
+    border: 10px solid #e2caa9;
     background: 0.5;
     height: 200px;
     overflow: auto;
@@ -115,28 +113,28 @@ a {
     font-size: 0.7vw;
 }
 #container-profile {
-    background-color: red;
+    background-color:#914848 ;
     color: yellow;
     
 }
 
 #container-pendingrequests {
-    background-color: blue;
+    background-color:#408080 ;
     color: yellow;
 }
 
 #container-sentrequests {
-    background-color: green;
+    background-color: #c46200;
     color: yellow;
 }
 
 #container-games {
-    background-color: brown;
+    background-color: olive;
     color: yellow;
 }
 
 #container-fingames {
-    background-color:olive;
+    background-color:brown;
     color: yellow;
 }
 
@@ -145,3 +143,12 @@ a {
     float: right;
 }
 
+.bg-primary , .btn-danger {
+    border-radius: 15px;
+    border: 0px;
+}
+
+.btn-danger {
+    border-radius: 15px;
+    border: 0px;
+}
