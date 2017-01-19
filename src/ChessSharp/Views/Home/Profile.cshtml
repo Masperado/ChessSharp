@@ -4,8 +4,8 @@
     ViewData["Title"] = "Profile: " + Model.User.Username;
 }
 
-<h1>@Model.User.Username</h1>
-<h1>@Model.User.Elo</h1>
+<h1>Hello @Model.User.Username!</h1>
+<h1>Current Elo: @Model.User.Elo</h1>
 
 <div class="col-xs-6 my-containers" id="container-profile">
     <div class="col-xs-2 header">USERNAME</div>
@@ -40,38 +40,55 @@
         <div class="col-xs-12" style="height: 3px;"></div>
     }
 </div>
-<div class="col-xs-4 my-containers" id="container-sentrequests">
+<div class="col-xs-4 my-containers second-row" id="container-sentrequests">
+    <div class="col-xs-6 header">REQUEST</div>
+    <div class="col-xs-4 header">TIMESENT</div>
+    <div class="col-xs-12" style="height: 6px;"></div>
     @foreach (var request in Model.User.SentRequests)
     {
-        <div class="col-xs-4" id="senderUsername">You want to play @request.Reciever.Username as @request.ColorRequest.ToString()</div>
+        <div class="col-xs-6" id="senderUsername">You want to play @request.Reciever.Username as @request.ColorRequest.ToString()</div>
         <div class="col-xs-4" id="time-sent">@request.TimeSent</div>
-        <div class="col-xs-4"><a class="bg-primary danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Cancel request</a></div>
-        <div class="col-xs-12" style="height: 3px;"></div>
+        <div class="col-xs-2"><a class="btn-danger" asp-action="DeclineRequest" asp-route-RequestId="@request.RequestId">Cancel request</a>
+        </div>
+        <div class="col-xs-12" style="height: 6px;"></div>
     }
 </div>
 
 
-<div class="col-xs-4 my-containers" id="container-games">
+<div class="col-xs-4 my-containers second-row" id="container-games">
+    
+    <div class="col-xs-4 header">WHITE</div>
+    <div class="col-xs-4 header">BLACK</div>
+    <div class="col-xs-2 header">MOVE</div>
+    <div class="col-xs-12" style="height: 6px;"></div>
+
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
     {
-        <div id="game">
-            <a asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">
-                <span id="whitePlayer">@game.WhitePlayer.Username</span>
-                <span id="blackPlayer">@game.BlackPlayer.Username</span>
-            </a>
+        <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
+        <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
+        <div class="col-xs-2" id="move">@game.FEN.ToCharArray()[@game.FEN.Length - 1]</div>
+        <div class="col-xs-2"><a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">Play</a>
         </div>
+        <div class="col-xs-12" style="height: 6px;"></div>
     }
 </div>
 
-<div class="col-xs-4 my-containers" id="container-fingames">
-    @foreach (var game in Model.Games.Where(g => g.CurrentGameState != GameState.STILL_PLAYING))
+<div class="col-xs-4 my-containers second-row" id="container-fingames">
+
+    <div class="col-xs-4 header">WHITE</div>
+    <div class="col-xs-4 header">BLACK</div>
+    <div class="col-xs-2 header">RESULT</div>
+    <div class="col-xs-12" style="height: 6px;"></div>
+
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
     {
-        <div id="game">
-            <a asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">
-                <span id="whitePlayer">@game.WhitePlayer.Username</span>
-                <span id="blackPlayer">@game.BlackPlayer.Username</span>
-            </a>
+        <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
+        <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
+        <div class="col-xs-2" id="result">@game.gameState()</div>
+        <div class="col-xs-2">
+            <a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">View</a>
         </div>
+        <div class="col-xs-12" style="height: 6px;"></div>
     }
 </div>
 
