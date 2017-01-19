@@ -1,6 +1,7 @@
 ﻿$.getScript("js/chess.js",
     function () {
         var madeMove = false;
+        var status = "";
 
         var board,
             boardEl = $("#board");
@@ -12,6 +13,9 @@
             colorToHighlight = 0,
             fenEl = $("#fen"),
             pgnEl = $("#pgn");
+
+        game.fen($("#fen").val());
+        game.pgn($("#pgn").val());    
 
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
@@ -45,7 +49,7 @@
         };
 
         var updateStatus = function() {
-            var status = "";
+            status = "";
 
             var moveColor = "White";
             if (game.turn() === "b") {
@@ -70,18 +74,17 @@
                 }
             }
 
-            
 
-            //statusEl.html(statu
-            $("#fen").html(game.fen());
-            pgnEl.html(game.pgn());
+            statusEl.html(status);
+            fenEl.val(game.fen());
+            pgnEl.val(game.pgn());
 
             
         };
 
         var cfg = {
             draggable: true,
-            position: $("#fen").text(),
+            position: $("#fen").val(),
             onDragStart: onDragStart,
             onDrop: onDrop,
             onSnapEnd: onSnapEnd
@@ -95,8 +98,11 @@
         var cancelMove = function() {
             game.undo();
             board.position(game.fen());
-            $("#fen").html(game.fen());
-            $("#pgn").html(game.pgn());
+            updateStatus();
+            
+            $("#status").html(status);
+            $("#fen").val(game.fen());
+            $("#pgn").val(game.pgn());
 
             madeMove = false;
 

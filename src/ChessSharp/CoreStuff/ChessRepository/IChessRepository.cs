@@ -122,6 +122,11 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// <param name="blackPlayerId">Player2 id</param>
         void CreateNewGame(Game newGame);
 
+        /// <summary>
+        /// Updates game(its Id is passed as parameter).
+        /// </summary>
+        /// <param name="gameId"></param>
+        void UpdateGame(Guid gameId, string FEN, string PGN);
 
 
     }

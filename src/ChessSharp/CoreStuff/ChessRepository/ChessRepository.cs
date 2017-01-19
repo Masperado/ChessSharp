@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ChessSharp.CoreStuff.Classes;
 using ChessSharp.Models;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using ChessSharp.Data;
 
 namespace ChessSharp.CoreStuff.ChessRepository
@@ -189,6 +190,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
             if (whitePlayer != null)
             {
                 whitePlayer.GamesHistoryAsWhite.Add(newGame);
+                _context.SaveChanges();
             }
 
             var blackPlayer = _context.ChessUsers
@@ -198,6 +200,20 @@ namespace ChessSharp.CoreStuff.ChessRepository
             if (blackPlayer != null)
             {
                 blackPlayer.GamesHistoryAsBlack.Add(newGame);
+                _context.SaveChanges();
+            }
+        }
+
+        public void UpdateGame(Guid gameId, string fen, string pgn)
+        {
+            var game = _context.Games.Find(gameId);
+
+            if (game != null)
+            {
+                game.FEN = fen;
+                game.PGN = pgn;
+                _context.Games.AddOrUpdate(game);
+                _context.SaveChanges(); 
             }
         }
 
@@ -207,3 +223,4 @@ namespace ChessSharp.CoreStuff.ChessRepository
         }
     }
 }
+

@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Razor.Parser.Internal
+﻿
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Razor.Parser.Internal
 @model Game
 
 
@@ -10,23 +12,28 @@
 
 <div id="board-system">
     <div id="board" style="width: 400px"></div>
-    <button id="submit-button" asp-action="SubmitMove" asp-route-FEN="" asp-route-PGN="">Submit</button>
+    <p>Status: <span id="status"></span></p>
+    <form asp-controller="Game" asp-action="SubmitMove" method="post" class="form-horizontal">
+        <input asp-for="GameId" value="@Model.GameId" id="gameId"/>
+        <input asp-for="FEN" value="@Model.FEN" id="fen"/>
+        <input asp-for="PGN" value="@Model.PGN" id="pgn"/>
+        <button type="submit">Submit</button>
+    </form>
+    
     <button id="cancel-button">Cancel</button>
 </div>
 
 
 
-<p>Status: <span id="status"></span></p>
 
 
 
-<div id="invisibleStuff">
-    <p>FEN: <span id="fen">@Model.FEN</span></p>
-    <p>PGN: <span id="pgn">@Model.PGN</span></p>
-</div>
 
 @section scripts
 {
+    <script type="text/C#">
+        
+    </script>
     <script src="~/js/chessboard-0.3.0.min.js"></script>
     <script src="~/js/chessLegal.js"></script>
     <script src="~/js/chess.js"></script>
