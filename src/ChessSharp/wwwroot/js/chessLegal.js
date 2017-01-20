@@ -14,8 +14,9 @@
             fenEl = $("#fen"),
             pgnEl = $("#pgn");
 
-        game.fen($("#fen").val());
-        game.pgn($("#pgn").val());    
+
+        game.load_pgn(pgnEl.val());
+
 
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
@@ -33,7 +34,11 @@
                 from: source,
                 to: target,
                 promotion: "q" // NOTE: always promote to a queen for example simplicity
+                  
             });
+
+
+
 
             // illegal move
             if (move === null) return "snapback";
@@ -46,6 +51,8 @@
         var onSnapEnd = function() {
             board.position(game.fen());
             madeMove = true;
+            $("#submit-button").show();
+            $("#cancel-button").show();
         };
 
         var updateStatus = function() {
@@ -84,14 +91,25 @@
 
         var cfg = {
             draggable: true,
-            position: $("#fen").val(),
+            position: fenEl.val(),
             onDragStart: onDragStart,
             onDrop: onDrop,
             onSnapEnd: onSnapEnd
         };
-        board = ChessBoard("board", cfg);
 
-        updateStatus();
+        board = ChessBoard("board", cfg);
+        var getArrLength = fenEl.val().split(' ').length;
+        if (parseInt(fenEl.val().split(' ')[getArrLength - 1]) > 1) {
+            $("#resign").show();
+            $("#Abort").hide();
+        } else {
+            $("#resign").hide();
+            $("#Abort").show();
+        }
+
+        $("#cancel-button").hide();
+        $("#submit-button").hide();
+        
 
 
 
@@ -100,10 +118,11 @@
             board.position(game.fen());
             updateStatus();
             
-            $("#status").html(status);
-            $("#fen").val(game.fen());
-            $("#pgn").val(game.pgn());
-
+            statusEl.html(status);
+            fenEl.val(game.fen());
+            pgnEl.val(game.pgn());
+            $("#cancel-button").hide();
+            $("#submit-button").hide();
             madeMove = false;
 
         };

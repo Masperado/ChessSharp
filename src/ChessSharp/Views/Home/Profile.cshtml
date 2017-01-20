@@ -29,7 +29,7 @@
     <div class="col-xs-4 header">REQUEST</div>
     <div class="col-xs-4 header">TIME SENT</div>
     <div class="col-xs-12" style="height: 3px;"></div>
-    @foreach (var request in Model.User.PendingRequests)
+    @foreach (var request in Model.PendingRequests)
     {
         <div class="col-xs-4" id="senderUsername">@request.Sender.Username wants to play as @request.ColorRequest.ToString() </div>
         <div class="col-xs-4" id="time-sent">@request.TimeSent</div>
@@ -44,7 +44,7 @@
     <div class="col-xs-6 header">REQUEST</div>
     <div class="col-xs-4 header">TIMESENT</div>
     <div class="col-xs-12" style="height: 6px;"></div>
-    @foreach (var request in Model.User.SentRequests)
+    @foreach (var request in Model.SentRequests)
     {
         <div class="col-xs-6" id="senderUsername">You want to play @request.Reciever.Username as @request.ColorRequest.ToString()</div>
         <div class="col-xs-4" id="time-sent">@request.TimeSent</div>
@@ -61,12 +61,23 @@
     <div class="col-xs-4 header">BLACK</div>
     <div class="col-xs-2 header">MOVE</div>
     <div class="col-xs-12" style="height: 6px;"></div>
-
-    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
+    
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING && g.GetPlayerOnTurnId() == Model.User.UserId))
+    {   
+        <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
+        <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
+        <div class="col-xs-2" id="move">@game.FEN.ToCharArray()[game.FEN.Length - 1]</div>
+        <div class="col-xs-2">
+            <a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">Play</a>
+        </div>
+        <div class="col-xs-12" style="height: 15px;"><span>YOUR MOVE!!!!!!!</span></div> <!-- Needs to be done more elegant-->
+    }
+    
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING && g.GetPlayerOnTurnId() != Model.User.UserId))
     {
         <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
         <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
-        <div class="col-xs-2" id="move">@game.FEN.ToCharArray()[@game.FEN.Length - 1]</div>
+        <div class="col-xs-2" id="move">@game.FEN.ToCharArray()[game.FEN.Length - 1]</div>
         <div class="col-xs-2"><a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">Play</a>
         </div>
         <div class="col-xs-12" style="height: 6px;"></div>
@@ -80,7 +91,7 @@
     <div class="col-xs-2 header">RESULT</div>
     <div class="col-xs-12" style="height: 6px;"></div>
 
-    @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING))
+    @foreach (var game in Model.Games.Where(g => g.CurrentGameState != GameState.STILL_PLAYING))
     {
         <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
         <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>

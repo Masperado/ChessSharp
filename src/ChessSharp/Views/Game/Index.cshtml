@@ -9,26 +9,29 @@
 <br/>
 
 <div id="board-system">
-    <button class="bg-primary active" id="submit-button" asp-action="SubmitMove" asp-route-FEN="" asp-route-PGN="">Submit</button>
-    <button class="bg-primary active" id="cancel-button" style="background-color:darkslateblue">Cancel</button>
+    <form id="gameInfo" asp-controller="Game" asp-action="SubmitMove" method="post" class="form-horizontal">
+        <input asp-for="GameId" value="@Model.GameId" id="gameId" />
+        <input asp-for="FEN" value="@Model.FEN" id="fen" />
+        <input asp-for="PGN" value="@Model.PGN" id="pgn" />
+        <input asp-for="DrawOffered" id="drawOffered"/>
+        <button class="bg-primary active" id="submit-button" type="submit">Submit</button>
+    </form>
+    <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
     <button class="bg-primary active" id="resign" style="background-color: red">Resign</button>
     <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
     <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
-    <button class="bg-primary active" id="Accept draw" style="background-color:tomato">Accept draw</button>
+    @if (@Model.DrawOffered)
+    {
+        <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
+    }
+    
 
 
 
 </div>
 
 
-<div style="font-size: 20px;">Status:</div>
-
-
-
-<div id="invisibleStuff">
-    <p>FEN: <span id="fen">@Model.FEN</span></p>
-    <p>PGN: <span id="pgn">@Model.PGN</span></p>
-</div>
+<div style="font-size: 20px;">Status: @Model.GetWhoseTurn() to move</div>
 
 @section scripts
 {

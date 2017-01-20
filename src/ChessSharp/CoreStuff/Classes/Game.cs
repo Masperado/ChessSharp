@@ -43,6 +43,35 @@ namespace ChessSharp.Models
         /// </summary>
         public GameState CurrentGameState { get; set; }
 
+        /// <summary>
+        /// Gets whose turn it is in this game.
+        /// If it is black's turn, returns true, else returns false
+        /// </summary>
+        /// <returns>If it is black's turn, return true, else return false</returns>
+        public string GetWhoseTurn()
+        {
+            if (FEN.Split(' ')[1] == "b")
+            {
+                return "Black";
+            }
+            else
+            {
+                return "White";
+            }
+        }
+
+        public string GetPlayerOnTurnId()
+        {
+            if (GetWhoseTurn().Equals("Black"))
+            {
+                return BlackPlayerId;
+            }
+            else
+            {
+                return WhitePlayerId;
+            }
+        }
+
         public Game(string whitePlayer, string blackPlayer)
         {
             GameId = Guid.NewGuid();

@@ -38,8 +38,8 @@ namespace ChessSharp.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = _repository.GetUserById(await GetUserIdAsync());
-            var pendingRequests = _repository.GetPendingRequests(user.UserId).OrderByDescending(r=>r.TimeSent.Date).ThenBy(r=>r.TimeSent.TimeOfDay).ToList();
-            var sentRequests = _repository.GetSentRequests(user.UserId).OrderByDescending(r => r.TimeSent.Date).ThenBy(r => r.TimeSent.TimeOfDay).ToList();
+            var pendingRequests = _repository.GetPendingRequests(user.UserId).OrderByDescending(r=>r.TimeSent).ToList();
+            var sentRequests = _repository.GetSentRequests(user.UserId).OrderByDescending(r => r.TimeSent).ToList();
             var games =
                 _repository.GetAllUserGames(user.UserId);
             var users = _repository.GetAllUsers(user.UserId);

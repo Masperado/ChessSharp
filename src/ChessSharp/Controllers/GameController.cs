@@ -48,7 +48,7 @@ namespace ChessSharp.Controllers
             var theGame = _repository.GetGameById(game.GameId);
 
             _repository.UpdateGame(game.GameId, game.FEN, game.PGN);
-            return RedirectToAction("Index", "Game", new {gameId = game.GameId});
+            return RedirectToAction("Profile", "Home");
         }
     }
 }
