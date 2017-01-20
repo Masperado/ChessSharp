@@ -8,6 +8,8 @@ namespace ChessSharp.CoreStuff.Classes
 {
     public class ChessUser
     {
+        private double _elo;
+
         /// <summary>
         /// Type is string beacuse the ASP.net Identity uses string as it's type for Id.
         /// </summary>
@@ -21,7 +23,21 @@ namespace ChessSharp.CoreStuff.Classes
         /// <summary>
         /// Integer used to determine the strength of a player.
         /// </summary>
-        public int Elo { get; set; }
+        public double Elo
+        {
+            get { return _elo; }
+            set
+            {
+                if (value < Constants.MinimumElo)
+                {
+                    _elo = Constants.MinimumElo;
+                }
+                else
+                {
+                    _elo = value;
+                }
+            }
+        }
 
         /// <summary>
         /// All the requests for new game that this user has recieved.

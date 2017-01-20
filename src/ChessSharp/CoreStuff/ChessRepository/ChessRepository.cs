@@ -204,14 +204,14 @@ namespace ChessSharp.CoreStuff.ChessRepository
             }
         }
 
-        public void UpdateGame(Guid gameId, string fen, string pgn)
+        public void UpdateGame(Game game)
         {
-            var game = _context.Games.Find(gameId);
-
             if (game != null)
             {
-                game.FEN = fen;
-                game.PGN = pgn;
+                
+                 game.ChangePlayersElo();
+                
+                
                 _context.Games.AddOrUpdate(game);
                 _context.SaveChanges(); 
             }

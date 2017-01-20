@@ -5,7 +5,7 @@
 }
 
 <h1>Hello @Model.User.Username!</h1>
-<h1>Current Elo: @Model.User.Elo</h1>
+<h1>Current Elo: @Math.Round(Model.User.Elo)</h1>
 
 <div class="col-xs-6 my-containers" id="container-profile">
     <div class="col-xs-2 header">USERNAME</div>
@@ -14,7 +14,7 @@
     @foreach (var appUser in Model.Users)
     {
         <div class="col-xs-2" id="username">@appUser.Username</div>
-        <div class="col-xs-2" id="elo">&nbsp; &nbsp; &nbsp;@appUser.Elo</div>
+        <div class="col-xs-2" id="elo">&nbsp; &nbsp; &nbsp;@Math.Round(appUser.Elo)</div>
         <div class="col-xs-4">
             <a class="bg-primary active" asp-action="SendRequest" asp-route-SenderId="@Model.User.UserId" asp-route-ReceiverId="@appUser.UserId" asp-route-ColorRequest="white">Send request as white</a>
         </div>
@@ -95,7 +95,7 @@
     {
         <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
         <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
-        <div class="col-xs-2" id="result">@game.gameState()</div>
+        <div class="col-xs-2" id="result">@game.GetGameStateScore()</div>
         <div class="col-xs-2">
             <a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">View</a>
         </div>

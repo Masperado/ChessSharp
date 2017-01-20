@@ -1,4 +1,7 @@
-﻿@using Microsoft.AspNetCore.Razor.Parser.Internal
+﻿@using ChessSharp.CoreStuff.Classes
+@using Microsoft.AspNetCore.Razor.Parser.Internal
+@using Microsoft.AspNetCore.Http
+@inject UserManager<ApplicationUser> UserManager
 @model Game
 
 
@@ -7,34 +10,52 @@
 
 <div id="board" style="width: 400px"></div>
 <hr />
-<br/>
+<br />
 
 <div id="board-system">
     <form id="gameInfo" asp-controller="Game" asp-action="SubmitMove" method="post" class="form-horizontal">
         <input asp-for="GameId" value="@Model.GameId" id="gameId" />
         <input asp-for="FEN" value="@Model.FEN" id="fen" />
         <input asp-for="PGN" value="@Model.PGN" id="pgn" />
-        <input asp-for="DrawOffered" id="drawOffered"/> <br />
+        <input asp-for="DrawOffered" id="drawOffered" /> <br />
+        <input asp-for="CurrentGameState" id="gameState" value="@Model.CurrentGameState" />
+        <input asp-for="BlackPlayerId" value="@Model.BlackPlayerId" />
+        <input asp-for="WhitePlayerId" value="@Model.WhitePlayerId" />
         <button class="bg-primary active" id="submit-button" type="submit">Submit</button>
-        <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
-        <button class="bg-primary active" id="resign" asp-action="Resign" style="background-color: red">Resign</button>
-        <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
-        <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
-        @if (@Model.DrawOffered)
-        {
-            <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
-        }
     </form>
 
+    <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
 
-    
+    @if (Model.CurrentGameState == GameState.STILL_PLAYING)
+    {
+        <form asp-action="Resign" asp-route-gameId="@Model.GameId.ToString()">
+            <button class="bg-primary active" id="resign" asp-action="Resign" style="background-color: red">Resign</button>
+        </form>
 
+        if (Model.DrawOffered.Equals(DrawOfferState.NONE))
+        {
+            <form asp-action="OfferDraw" asp-route-gameId="@Model.GameId.ToString()" asp-route-drawState="@Model.GetRightDrawState((string)ViewData["UserId"])">
+                <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
+            </form>
+        }
+    }
 
+    <form asp-action="Abort" asp-route-gameId="@Model.GameId.ToString()">
+        <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
+    </form>
+
+    @if ((@Model.DrawOffered.Equals(DrawOfferState.BLACK_OFFERED) && ViewData["UserId"].Equals(Model.WhitePlayerId)) ||
+                        (@Model.DrawOffered.Equals(DrawOfferState.WHITE_OFFERED) && ViewData["UserId"].Equals(Model.BlackPlayerId)))
+    {
+        <form asp-action="AcceptDraw" asp-route-gameId="@Model.GameId.ToString()">
+            <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
+        </form>
+    }
 
 </div>
 
-
-<div style="font-size: 20px;">Status: @Model.GetWhoseTurn() to move</div>
+<span id="orientation">@Model.GetUserColor((string)ViewData["UserId"])</span>
+<div style="font-size: 20px;">@Model.GetWhoseTurn() to move</div>
 
 @section scripts
 {

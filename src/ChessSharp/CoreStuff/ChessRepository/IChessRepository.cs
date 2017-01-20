@@ -113,6 +113,11 @@ namespace ChessSharp.CoreStuff.ChessRepository
         /// <returns>All user's games.</returns>
         List<Game> GetAllUserGames(string userId);
 
+        /// <summary>
+        /// Gets game by its Id.
+        /// </summary>
+        /// <param name="gameId">Id of the game to be returned</param>
+        /// <returns>Game with passed Id.</returns>
         Game GetGameById(Guid gameId);
 
         /// <summary>
@@ -123,10 +128,10 @@ namespace ChessSharp.CoreStuff.ChessRepository
         void CreateNewGame(Game newGame);
 
         /// <summary>
-        /// Updates game(its Id is passed as parameter).
+        /// Updates game with the instance provided with parameter.
         /// </summary>
-        /// <param name="gameId"></param>
-        void UpdateGame(Guid gameId, string FEN, string PGN);
+        /// <param name="game"></param>
+        void UpdateGame(Game game);
 
 
     }

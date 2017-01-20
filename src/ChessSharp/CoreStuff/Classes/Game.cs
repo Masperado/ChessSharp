@@ -36,7 +36,7 @@ namespace ChessSharp.Models
         /// <summary>
         /// This class member determines if draw has been offered by one of the players.
         /// </summary>
-        public bool DrawOffered { get; set; }
+        public DrawOfferState DrawOffered { get; set; }
 
         /// <summary>
         /// State of this game.
@@ -79,7 +79,7 @@ namespace ChessSharp.Models
             BlackPlayerId = blackPlayer;
             PGN = String.Empty;
             FEN = Constants.StartingFEN;
-            DrawOffered = false;
+            DrawOffered = DrawOfferState.NONE;
             CurrentGameState = GameState.STILL_PLAYING;
         }
 
@@ -89,19 +89,65 @@ namespace ChessSharp.Models
         }
 
 
-        public string gameState()
+        public string GetGameStateScore()
         {
             if (CurrentGameState.Equals(GameState.STILL_PLAYING)) return "%";
             else if(CurrentGameState.Equals(GameState.ABORTED)) return "&";
             else if (CurrentGameState.Equals(GameState.WHITE_WINS)) return "1-0";
             else if (CurrentGameState.Equals(GameState.DRAW)) return "0.5-0.5";
             else return "0-1";
+        }
+
+        public DrawOfferState GetRightDrawState(string userId)
+        {
+            return userId.Equals(WhitePlayerId) ? DrawOfferState.WHITE_OFFERED : DrawOfferState.BLACK_OFFERED;
+        }
+
+        public void ChangePlayersElo()
+        {
+            if (!CurrentGameState.Equals(GameState.STILL_PLAYING) || CurrentGameState.Equals(GameState.ABORTED))
+            {
+                double whiteScore = double.Parse(GetGameStateScore().Split('-')[0]);
+                double blackScore = double.Parse(GetGameStateScore().Split('-')[1]);
+
+                double expectedBlack = Constants.GetExpectedScore(WhitePlayer.Elo, BlackPlayer.Elo);
+                double expectedWhite = Constants.GetExpectedScore(BlackPlayer.Elo, WhitePlayer.Elo);
+
+                int whiteConstant, blackConstant;
+
+                if (BlackPlayer.Elo >= Constants.StrongElo)
+                    blackConstant = Constants.StrongK;
+                else
+                    blackConstant = Constants.WeakK;
+
+                BlackPlayer.Elo = Calculate(BlackPlayer.Elo, blackConstant, blackScore, expectedBlack);
+
+                if (WhitePlayer.Elo >= Constants.StrongElo)
+                    whiteConstant = Constants.StrongK;
+                else
+                    whiteConstant = Constants.WeakK;
+
+                WhitePlayer.Elo = Calculate(WhitePlayer.Elo, whiteConstant, whiteScore, expectedWhite);
 
 
+            }
+        }
 
+        public double Calculate(double elo, int constant, double score, double expected)
+        {
+            return elo + constant * (score - expected);
+        }
 
-
-
+        public string GetUserColor(string userId)
+        {
+            if (userId.Equals(WhitePlayerId))
+            {
+                return "white";
+            }
+            else
+            {
+                return "black";
+            }
         }
     }
 }

@@ -5,13 +5,14 @@
 
         var board,
             boardEl = $("#board");
-            game = new Chess(),
+        game = new Chess(),
             squareClass = "square-55d63",
             moveHistory = 0,
             statusEl = $("#status"),
             squareToHighlight = 0,
             colorToHighlight = 0,
             fenEl = $("#fen"),
+            gStateEl = $("#gameState");
             pgnEl = $("#pgn");
 
 
@@ -24,6 +25,8 @@
             if (game.game_over() === true || madeMove === true || 
                 (game.turn() === "w" && piece.search(/^b/) !== -1) ||
                 (game.turn() === "b" && piece.search(/^w/) !== -1)) {
+                
+
                 return false;
             }
         };
@@ -37,7 +40,16 @@
                   
             });
 
-
+            if (game.in_checkmate()) {
+                if (game.turn() === "w") {
+                    gStateEl.val("BLACK_WINS");
+                } else {
+                    gStateEl.val("WHITE_WINS");
+                }
+            }
+            if (game.in_draw()) {
+                gStateEl.val("DRAW");
+            }
 
 
             // illegal move
@@ -94,8 +106,9 @@
             position: fenEl.val(),
             onDragStart: onDragStart,
             onDrop: onDrop,
-            onSnapEnd: onSnapEnd
-        };
+            onSnapEnd: onSnapEnd,
+            orientation: $("#orientation").html()
+    };
 
         board = ChessBoard("board", cfg);
         var getArrLength = fenEl.val().split(' ').length;
