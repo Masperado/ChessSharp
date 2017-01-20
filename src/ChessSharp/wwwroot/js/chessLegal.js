@@ -27,7 +27,8 @@
         var onDragStart = function (source, piece, position, orientation) {
             var notMyMove = false;
             if ((game.turn() === "w" && $("#orientation").html() === "black") ||
-                (game.turn() === "b" && $("#orientation").html() === "white")) {
+                (game.turn() === "b" && $("#orientation").html() === "white") ||
+                $("#gameState").val() !== "STILL_PLAYING") {
                 notMyMove = true;
             }
 
