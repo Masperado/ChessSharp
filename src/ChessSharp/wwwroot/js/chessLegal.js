@@ -1,6 +1,9 @@
 ﻿$.getScript("js/chess.js",
     function () {
         var madeMove = false;
+        
+
+
         var status = "";
 
         var board,
@@ -21,8 +24,14 @@
 
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
-        var onDragStart = function(source, piece, position, orientation) {
-            if (game.game_over() === true || madeMove === true || 
+        var onDragStart = function (source, piece, position, orientation) {
+            var notMyMove = false;
+            if ((game.turn() === "w" && $("#orientation").html() === "black") ||
+                (game.turn() === "b" && $("#orientation").html() === "white")) {
+                notMyMove = true;
+            }
+
+            if (game.game_over() === true || madeMove === true || notMyMove === true ||
                 (game.turn() === "w" && piece.search(/^b/) !== -1) ||
                 (game.turn() === "b" && piece.search(/^w/) !== -1)) {
                 

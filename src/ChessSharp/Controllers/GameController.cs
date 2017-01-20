@@ -89,7 +89,6 @@ namespace ChessSharp.Controllers
             game.CurrentGameState = GameState.ABORTED;
 
             _repository.UpdateGame(game);
-
             return RedirectToAction("Profile", "Home");
         }
 
