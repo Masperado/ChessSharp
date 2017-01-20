@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ChessSharp.CoreStuff.Classes;
@@ -91,13 +92,20 @@ namespace ChessSharp.Models
 
         public string GetGameStateScore()
         {
-            if (CurrentGameState.Equals(GameState.STILL_PLAYING)) return "%";
-            else if(CurrentGameState.Equals(GameState.ABORTED)) return "&";
+            if (CurrentGameState.Equals(GameState.STILL_PLAYING)) return "Game still playing";
+            else if(CurrentGameState.Equals(GameState.ABORTED)) return "Game aborted";
             else if (CurrentGameState.Equals(GameState.WHITE_WINS)) return "1-0";
             else if (CurrentGameState.Equals(GameState.DRAW)) return "0.5-0.5";
             else return "0-1";
         }
 
+        public string GetDrawOfferedState()
+        {
+            if (DrawOffered.Equals(DrawOfferState.WHITE_OFFERED)) return "White offered draw";
+            else if (DrawOffered.Equals(DrawOfferState.BLACK_OFFERED)) return "Black offered draw";
+            else return "None";
+
+        }
         public DrawOfferState GetRightDrawState(string userId)
         {
             return userId.Equals(WhitePlayerId) ? DrawOfferState.WHITE_OFFERED : DrawOfferState.BLACK_OFFERED;
@@ -107,8 +115,8 @@ namespace ChessSharp.Models
         {
             if (!CurrentGameState.Equals(GameState.STILL_PLAYING) || CurrentGameState.Equals(GameState.ABORTED))
             {
-                double whiteScore = double.Parse(GetGameStateScore().Split('-')[0]);
-                double blackScore = double.Parse(GetGameStateScore().Split('-')[1]);
+                double whiteScore = double.Parse(GetGameStateScore().Split('-')[0],CultureInfo.InvariantCulture);
+                double blackScore = double.Parse(GetGameStateScore().Split('-')[1],CultureInfo.InvariantCulture);
 
                 double expectedBlack = Constants.GetExpectedScore(WhitePlayer.Elo, BlackPlayer.Elo);
                 double expectedWhite = Constants.GetExpectedScore(BlackPlayer.Elo, WhitePlayer.Elo);

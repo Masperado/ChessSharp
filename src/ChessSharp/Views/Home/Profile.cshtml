@@ -8,6 +8,7 @@
 <h1>Current Elo: @Math.Round(Model.User.Elo)</h1>
 
 <div class="col-xs-6 my-containers" id="container-profile">
+    <div class="col-xs-12 header2">LIST OF ALL USERS</div>
     <div class="col-xs-2 header">USERNAME</div>
     <div class="col-xs-2 header">&nbsp;&nbsp;&nbsp;ELO</div>
     <div class="col-xs-12" style="height: 3px;"></div>
@@ -26,6 +27,7 @@
 </div>
 
 <div class="col-xs-6 my-containers" id="container-pendingrequests">
+    <div class="col-xs-12 header2">PENDING REQUESTS</div>
     <div class="col-xs-4 header">REQUEST</div>
     <div class="col-xs-4 header">TIME SENT</div>
     <div class="col-xs-12" style="height: 3px;"></div>
@@ -41,6 +43,7 @@
     }
 </div>
 <div class="col-xs-4 my-containers second-row" id="container-sentrequests">
+    <div class="col-xs-12 header2">SENT REQUESTS</div>
     <div class="col-xs-6 header">REQUEST</div>
     <div class="col-xs-4 header">TIMESENT</div>
     <div class="col-xs-12" style="height: 6px;"></div>
@@ -56,7 +59,7 @@
 
 
 <div class="col-xs-4 my-containers second-row" id="container-games">
-    
+    <div class="col-xs-12 header2">ACTIVE GAMES</div>
     <div class="col-xs-4 header">WHITE</div>
     <div class="col-xs-4 header">BLACK</div>
     <div class="col-xs-2 header">MOVE</div>
@@ -64,13 +67,13 @@
     
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING && g.GetPlayerOnTurnId() == Model.User.UserId))
     {   
-        <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
-        <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
-        <div class="col-xs-2" id="move">@game.FEN.ToCharArray()[game.FEN.Length - 1]</div>
+        <div class="col-xs-4" id="whitePlayer" style="color:lightblue">@game.WhitePlayer.Username</div>
+        <div class="col-xs-4" id="blackPlayer" style="color: lightblue;">@game.BlackPlayer.Username</div>
+        <div class="col-xs-2" id="move" style="color: lightblue;">@game.FEN.ToCharArray()[game.FEN.Length - 1]</div>
         <div class="col-xs-2">
             <a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">Play</a>
         </div>
-        <div class="col-xs-12" style="height: 15px;"><span>YOUR MOVE!!!!!!!</span></div> <!-- Needs to be done more elegant-->
+        <div class="col-xs-12" style="height: 6px;"></div>
     }
     
     @foreach (var game in Model.Games.Where(g => g.CurrentGameState == GameState.STILL_PLAYING && g.GetPlayerOnTurnId() != Model.User.UserId))
@@ -85,7 +88,7 @@
 </div>
 
 <div class="col-xs-4 my-containers second-row" id="container-fingames">
-
+    <div class="col-xs-12 header2">FINISHED GAMES</div>
     <div class="col-xs-4 header">WHITE</div>
     <div class="col-xs-4 header">BLACK</div>
     <div class="col-xs-2 header">RESULT</div>
@@ -95,7 +98,7 @@
     {
         <div class="col-xs-4" id="whitePlayer">@game.WhitePlayer.Username</div>
         <div class="col-xs-4" id="blackPlayer">@game.BlackPlayer.Username</div>
-        <div class="col-xs-2" id="result">@game.GetGameStateScore()</div>
+        <div class="col-xs-2" style="font-size: 0.55vw" id="result">@game.GetGameStateScore()</div>
         <div class="col-xs-2">
             <a class="bg-primary active" asp-controller="Game" asp-action="Index" asp-route-gameId="@game.GameId.ToString()">View</a>
         </div>
