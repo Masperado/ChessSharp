@@ -13,9 +13,9 @@ namespace ChessSharp.Models
         public static int StrongElo = 2000;
 
         //Constant used to calculate new Elo 
-        public static int WeakK = 16;
+        public static int WeakK = 32;
 
-        public static int StrongK = 32;
+        public static int StrongK = 16;
 
         public static string StartingFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 

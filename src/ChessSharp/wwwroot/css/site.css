@@ -109,6 +109,13 @@ a {
 
 }
 
+
+.my-containers .header2 {
+    font-size: 1.5vw;
+    color:khaki;
+
+}
+
 .my-containers.second-row {
     font-size: 0.7vw;
 }
@@ -138,8 +145,7 @@ a {
     color: yellow;
 }
 
-
-#board-system {
+.botuni {
     float: right;
 }
 
@@ -154,7 +160,7 @@ a {
 }
 
 #gameInfo {
-    visibility: visible;
+    visibility: hidden;
 }
 
 #submit-button {

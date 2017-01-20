@@ -73,6 +73,14 @@ namespace ChessSharp.Controllers
             return RedirectToAction("Profile", "Home");
         }
 
+        public IActionResult NoDraw(string gameId)
+        {
+            var game = _repository.GetGameById(Guid.Parse(gameId));
+            game.DrawOffered = DrawOfferState.NONE;
+
+            _repository.UpdateGame(game);
+            return RedirectToAction("Index", new { gameId = gameId });
+        }
         public IActionResult OfferDraw(string gameId, DrawOfferState drawState)
         {
             var game = _repository.GetGameById(Guid.Parse(gameId));

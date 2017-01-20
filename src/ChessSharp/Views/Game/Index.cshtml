@@ -9,8 +9,6 @@
 <h1>@Model.WhitePlayer.Username vs @Model.BlackPlayer.Username</h1>
 
 <div id="board" style="width: 400px"></div>
-<hr />
-<br />
 
 <div id="board-system">
     <form id="gameInfo" asp-controller="Game" asp-action="SubmitMove" method="post" class="form-horizontal">
@@ -21,41 +19,56 @@
         <input asp-for="CurrentGameState" id="gameState" value="@Model.CurrentGameState" />
         <input asp-for="BlackPlayerId" value="@Model.BlackPlayerId" />
         <input asp-for="WhitePlayerId" value="@Model.WhitePlayerId" />
-        <button class="bg-primary active" id="submit-button" type="submit">Submit</button>
+        <br/>
+        <button class="bg-primary active botuni" id="submit-button" style="visibility:visible" type="submit">Submit</button>
     </form>
 
-    <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
+    <button class="bg-primary active botuni" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
 
     @if (Model.CurrentGameState == GameState.STILL_PLAYING)
     {
         <form asp-action="Resign" asp-route-gameId="@Model.GameId.ToString()">
-            <button class="bg-primary active" id="resign" asp-action="Resign" style="background-color: red">Resign</button>
+            <button class="bg-primary active botuni" id="resign" asp-action="Resign" style="background-color: red">Resign</button>
         </form>
 
         if (Model.DrawOffered.Equals(DrawOfferState.NONE))
         {
             <form asp-action="OfferDraw" asp-route-gameId="@Model.GameId.ToString()" asp-route-drawState="@Model.GetRightDrawState((string)ViewData["UserId"])">
-                <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
+                <button class="bg-primary active botuni" id="Offer draw" style="background-color: green">Offer draw</button>
             </form>
         }
+        else
+        {
+            <form asp-action="NoDraw" asp-route-gameId="@Model.GameId.ToString()">
+                <button class="bg-primary active botuni" id="Offer draw" style="background-color:darkorange">No draw</button>
+            </form>
+        }
+
     }
 
     <form asp-action="Abort" asp-route-gameId="@Model.GameId.ToString()">
-        <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
+        <button class="bg-primary active botuni" id="Abort" style="background-color: fuchsia">Abort</button>
     </form>
 
     @if ((@Model.DrawOffered.Equals(DrawOfferState.BLACK_OFFERED) && ViewData["UserId"].Equals(Model.WhitePlayerId)) ||
                         (@Model.DrawOffered.Equals(DrawOfferState.WHITE_OFFERED) && ViewData["UserId"].Equals(Model.BlackPlayerId)))
     {
         <form asp-action="AcceptDraw" asp-route-gameId="@Model.GameId.ToString()">
-            <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
+            <button class="bg-primary active botuni" id="Accept draw" style="background-color: tomato">Accept draw</button>
         </form>
     }
 
 </div>
 
-<span id="orientation">@Model.GetUserColor((string)ViewData["UserId"])</span>
-<div style="font-size: 20px;">@Model.GetWhoseTurn() to move</div>
+<div>
+    <div>@Model.GetWhoseTurn() to move</div>
+    <div>PGN: @Model.PGN</div>
+    <div>Draw offered: @Model.GetDrawOfferedState()</div>
+
+    <div>Game state: @Model.GetGameStateScore()</div>
+
+
+</div>
 
 @section scripts
 {

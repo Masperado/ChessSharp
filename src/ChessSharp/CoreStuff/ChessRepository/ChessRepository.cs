@@ -66,7 +66,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
             }
             catch (NullReferenceException ex)
             {
-                return null;
+                return new List<Request>();
             }
             
             
@@ -86,7 +86,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
             }
             catch (NullReferenceException ex)
             {
-                return null;
+                return new List<Request>();
             }
         }
 
@@ -158,7 +158,7 @@ namespace ChessSharp.CoreStuff.ChessRepository
             }
             catch (NullReferenceException ex)
             {
-                return null;
+                return new List<Game>();
             }
         }
 
