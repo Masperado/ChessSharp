@@ -6,6 +6,7 @@
 <h1>@Model.WhitePlayer.Username vs @Model.BlackPlayer.Username</h1>
 
 <div id="board" style="width: 400px"></div>
+<hr />
 <br/>
 
 <div id="board-system">
@@ -13,17 +14,19 @@
         <input asp-for="GameId" value="@Model.GameId" id="gameId" />
         <input asp-for="FEN" value="@Model.FEN" id="fen" />
         <input asp-for="PGN" value="@Model.PGN" id="pgn" />
-        <input asp-for="DrawOffered" id="drawOffered"/>
+        <input asp-for="DrawOffered" id="drawOffered"/> <br />
         <button class="bg-primary active" id="submit-button" type="submit">Submit</button>
+        <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
+        <button class="bg-primary active" id="resign" asp-action="Resign" style="background-color: red">Resign</button>
+        <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
+        <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
+        @if (@Model.DrawOffered)
+        {
+            <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
+        }
     </form>
-    <button class="bg-primary active" id="cancel-button" style="background-color: darkslateblue">Cancel</button>
-    <button class="bg-primary active" id="resign" style="background-color: red">Resign</button>
-    <button class="bg-primary active" id="Offer draw" style="background-color: green">Offer draw</button>
-    <button class="bg-primary active" id="Abort" style="background-color: fuchsia">Abort</button>
-    @if (@Model.DrawOffered)
-    {
-        <button class="bg-primary active" id="Accept draw" style="background-color: tomato">Accept draw</button>
-    }
+
+
     
 
 
