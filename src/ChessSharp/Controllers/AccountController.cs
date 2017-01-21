@@ -217,10 +217,12 @@ namespace ChessSharp.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
+                
                 if (result.Succeeded)
                 {
+                    _repository.AddNewUser(user.Id, user.UserName);
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {

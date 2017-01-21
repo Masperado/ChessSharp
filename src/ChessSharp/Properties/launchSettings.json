@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:42974/",
-      "sslPort": 0
+      "applicationUrl": "https://localhost:44369/",
+      "sslPort": 44369
     }
   },
   "profiles": {
@@ -18,7 +18,7 @@
     "ChessSharp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000",
+      "launchUrl": "http://localhost:44369",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

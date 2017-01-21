@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ChessSharp.Data;
 using ChessSharp.Models;
 using ChessSharp.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChessSharp
 {
@@ -54,7 +55,11 @@ namespace ChessSharp
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.SslPort = 44369;
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -89,6 +94,12 @@ namespace ChessSharp
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseFacebookAuthentication(new FacebookOptions()
+            {
+                AppId = Configuration["Authentication:Facebook:AppId"],
+                AppSecret = Configuration["Authentication:Facebook:AppSecret"]
+            });
 
             app.UseMvc(routes =>
             {
