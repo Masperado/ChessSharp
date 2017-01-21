@@ -20,6 +20,8 @@ namespace ChessSharp
 {
     public class Startup
     {
+        private bool _isDevelopment;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -38,6 +40,7 @@ namespace ChessSharp
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+            _isDevelopment = env.IsDevelopment();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -57,7 +60,11 @@ namespace ChessSharp
 
             services.AddMvc(options =>
             {
-                options.SslPort = 44369;
+                if (_isDevelopment)
+                {
+                    options.SslPort = 44369;
+                }
+                    
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
