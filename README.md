@@ -4,7 +4,7 @@ Ovaj projekt je rađen za vještinu "Razvoj aplikacija u programskom jeziku C#" 
 
 ## Osnovni podatci
 
-Stranica se nalazi na: . Stranicu su izradili Josip Paulik (0036492647) i Josip Torić (0036491099).
+Stranica se nalazi na: http://ferchess.azurewebsites.net/ . Stranicu su izradili Josip Paulik (0036492647) i Josip Torić (0036491099).
 
 ### Zahtjevi za pregledavanje web stranice
 
@@ -12,7 +12,7 @@ Da biste uspješno otvorili web stranicu trebate imati web preglednik noviji od 
 
 ### Ulazak na stranicu
 
-Kada dođete na početnu stranicu vidjet ćete šahovsku ploču na kojoj možete pomicati figure i analizirati razne pozicije. U gornjem desnom kutu vam piše Register i Log in. Kada kliknete na Register otvori vam se forma gdje možete napraviti novi račun, potreban vam je samo e-mail. Ako uđete na Log in, možete se logirati u već postojeći račun ili ući na stranicu pomoću Facebooka, Googlea ili Twittera.
+Kada dođete na početnu stranicu vidjet ćete šahovsku ploču na kojoj možete pomicati figure i analizirati razne pozicije. U gornjem desnom kutu vam piše Register i Log in. Kada kliknete na Register otvori vam se forma gdje možete napraviti novi račun, potreban vam je samo e-mail. Ako uđete na Log in, možete se logirati u već postojeći račun ili ući na stranicu pomoću Facebooka ili Googlea.
 
 ### Vlastiti profil
 
@@ -20,7 +20,7 @@ Kada uđete na vlastiti profil možete vidjeti 5 kućica. U prvoj se nalazi popi
 
 ### Stranica igre
 
-Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i 
+Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i sami ponišiti u bilo kojem trenutku. Dok traje prvi potez, možete napustiti igru bez da vam utječe na rejting. Nakon što prođe prvi potez(nakon što crni povuče svoj prvi potez) partiju možete predati u bilo kojem trenutku, naravno to se računa kao poraz. U donjem lijevom kutu piše čiji je porez, lista poteza, jeli ponuđen remi te status partije. 
 
 ### Osposobljavanje web stranice za rad
 
@@ -34,15 +34,5 @@ Da bi ste pokrenuli ovu web stranicu nakon što skinete cjelokupan kod trebate p
 
 ## Autori
 
-* **Josip Torić** - *Ideja web stranice i frontend* - [Masperado](https://github.com/Masperado)
-* **Josip Paulik** - *Backend i dizajn baze podatka* - [josip-paulik](https://github.com/josip-paulik)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* **Josip Torić** - *Ideja web stranice i front end* - [Masperado](https://github.com/Masperado)
+* **Josip Paulik** - *Back end i dizajn baze podatka* - [josip-paulik](https://github.com/josip-paulik)
