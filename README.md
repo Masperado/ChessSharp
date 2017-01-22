@@ -20,7 +20,7 @@ Kada uđete na vlastiti profil možete vidjeti 5 kućica. U prvoj se nalazi popi
 
 ### Stranica igre
 
-Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i 
+Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i sami ponišiti u bilo kojem trenutku. Dok traje prvi potez, možete napustiti igru bez da vam utječe na rejting. Nakon što prođe prvi potez partiju možete predati u bilo kojem trenutku, naravno to se računa kao poraz. U donjem lijevom kutu piše čiji je porez, lista poteza, jeli ponuđen remi te status partije. 
 
 ### Osposobljavanje web stranice za rad
 
@@ -34,15 +34,5 @@ Da bi ste pokrenuli ovu web stranicu nakon što skinete cjelokupan kod trebate p
 
 ## Autori
 
-* **Josip Torić** - *Ideja web stranice i frontend* - [Masperado](https://github.com/Masperado)
-* **Josip Paulik** - *Backend i dizajn baze podatka* - [josip-paulik](https://github.com/josip-paulik)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* **Josip Torić** - *Ideja web stranice i front end* - [Masperado](https://github.com/Masperado)
+* **Josip Paulik** - *Back end i dizajn baze podatka* - [josip-paulik](https://github.com/josip-paulik)
