@@ -33,11 +33,13 @@ namespace ChessSharp.Data
             modelBuilder.Entity<Game>()
                 .HasRequired(g => g.BlackPlayer)
                 .WithMany(cu => cu.GamesHistoryAsBlack)
-                .HasForeignKey(g => g.BlackPlayerId);
+                .HasForeignKey(g => g.BlackPlayerId)
+                .WillCascadeOnDelete(false);
             modelBuilder.Entity<Game>()
                 .HasRequired(g => g.WhitePlayer)
                 .WithMany(cu => cu.GamesHistoryAsWhite)
-                .HasForeignKey(g => g.WhitePlayerId);
+                .HasForeignKey(g => g.WhitePlayerId)
+                .WillCascadeOnDelete(false);
         }
     }
 }
