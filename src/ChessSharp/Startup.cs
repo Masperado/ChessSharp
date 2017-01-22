@@ -114,6 +114,12 @@ namespace ChessSharp
                 ClientSecret = Configuration["Authentication:Google:ClientSecret"]
             });
 
+            app.UseTwitterAuthentication(new TwitterOptions()
+            {
+                ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"],
+                ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"]
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
