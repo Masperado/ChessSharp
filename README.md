@@ -4,7 +4,7 @@ Ovaj projekt je rađen za vještinu "Razvoj aplikacija u programskom jeziku C#" 
 
 ## Osnovni podatci
 
-Stranica se nalazi na: . Stranicu su izradili Josip Paulik (0036492647) i Josip Torić (0036491099).
+Stranica se nalazi na: http://ferchess.azurewebsites.net/ . Stranicu su izradili Josip Paulik (0036492647) i Josip Torić (0036491099).
 
 ### Zahtjevi za pregledavanje web stranice
 
