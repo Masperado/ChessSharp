@@ -16,7 +16,7 @@ Kada dođete na početnu stranicu vidjet ćete šahovsku ploču na kojoj možete
 
 ### Vlastiti profil
 
-Kada uđete na vlastiti profil možete vidjeti 5 kućica. U prvoj se nalazi popis svih korisnika na stranici kojima možete poslati zahtjev da igrate kao bijeli ili crni, u drugoj popis svih zahtjeva koji su vam poslali drugi korisnici, u trećoj popis svih vaših poslanih zahtjeva, u četvrtoj popis svih vaših aktivnih igara, a u petoj svih vaših završenih igara. Kada prihvatite zahtjev koji vam je poslao novi korisnik stvara se nova igra koja vam se prikaže kao novi redak u kućici aktivnih igara. U kućici sa aktivnim igrama možete stisnuti na play button koji vas vodi na stranicu gdje se održava dotična igra. U kućici sa završenim igrama možete kliknuti na View te vam se otvara stranica gdje se održavala dotična igra.
+Kada uđete na vlastiti profil možete vidjeti 5 kućica. U prvoj se nalazi popis svih korisnika na stranici kojima možete poslati zahtjev da igrate kao bijeli ili crni, u drugoj popis svih zahtjeva koji su vam poslali drugi korisnici, u trećoj popis svih vaših poslanih zahtjeva, u četvrtoj popis svih vaših aktivnih igara, a u petoj svih vaših završenih igara. Kada prihvatite zahtjev koji vam je poslao novi korisnik stvara se nova igra koja vam se prikaže kao novi redak u kućici aktivnih igara. U kućici sa aktivnim igrama možete stisnuti na play button koji vas vodi na stranicu gdje se održava dotična igra. U kućici sa završenim igrama možete kliknuti na View te vam se otvara stranica gdje se održavala dotična igra. Za potrebe testiranja slobodno napravite dva profila da možete sami sebi poslati zahtjev i odigrati partiju sami sa sobom da vidite kako radi stranica same igre.
 
 ### Stranica igre
 
