@@ -1,3 +1,4 @@
+
 # FerChess
 
 Ovaj projekt je rađen za vještinu "Razvoj aplikacija u programskom jeziku C#" koja se održavala u zimskog semestru akademske godine 2016./2017. na FER-u. Radi se o web stranici koja će se upotrebljavati za potrebe šahovske sekcije na FER-u. Stranica predstavlja implementaciju igranja dopisnog šaha. Korisnici mogu otvoriti svoj profil, izazvati bilo kog od korisnika koji su registrirani na sustav, s njima odigrati po volji mnogo partija koje ostaju zapisane u bazi podataka te imaju svoj elo rejting koji raste, odnosno pada zavisno o perfomansu u odigranim partijama.
@@ -20,7 +21,7 @@ Kada uđete na vlastiti profil možete vidjeti 5 kućica. U prvoj se nalazi popi
 
 ### Stranica igre
 
-Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i sami ponišiti u bilo kojem trenutku. Dok traje prvi potez, možete napustiti igru bez da vam utječe na rejting. Nakon što prođe prvi potez(nakon što crni povuče svoj prvi potez) partiju možete predati u bilo kojem trenutku, naravno to se računa kao poraz. U donjem lijevom kutu piše čiji je porez, lista poteza, jeli ponuđen remi te status partije. 
+Na stranici igre možete igrati samu partiju. Kada je vaš potez možete pomaknuti figuru na ploči. Nakon što pomaknete figuru morate kliknuti na Sumbit button da biste poslali potez u bazu podataka i dali potez vašem protivniku. Možete kliknuti i na Cancel button da bi ste poništili potez prije nego što kliknete Sumbit i odigrati novi potez. Vašem protivniku možete ponuditi remi kojeg protivnik može prihvatiti ili odbiti. Zahtjev za remi možete i sami ponišiti u bilo kojem trenutku. Dok traje prvi potez, možete napustiti igru bez da vam utječe na rejting. Nakon što prođe prvi potez(nakon što crni povuče svoj prvi potez) partiju možete predati u bilo kojem trenutku, naravno to se računa kao poraz. U donjem lijevom kutu piše čiji je potez, lista poteza, jeli ponuđen remi te status partije. 
 
 ### Osposobljavanje web stranice za rad
 
@@ -30,6 +31,7 @@ Da bi ste pokrenuli ovu web stranicu nakon što skinete cjelokupan kod trebate p
 
 * [ASP.Net Core](https://www.asp.net/core) - Korišteni web framework
 * [Chessboard.js](http://chessboardjs.com/) - Implementacija šahovske ploče
+* [Chess.js](https://github.com/jhlywa/chess.js/blob/master/README.md) - Chess engine korišten za analizu trenutnog položaja na ploči.
 * [Bootstrap](http://getbootstrap.com/) - Korišten css za dizajn stranice
 
 ## Autori
