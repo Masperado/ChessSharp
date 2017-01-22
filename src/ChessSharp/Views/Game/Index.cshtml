@@ -4,6 +4,9 @@
 @inject UserManager<ApplicationUser> UserManager
 @model Game
 
+@{
+    ViewData["Title"] = Model.WhitePlayer.Username + " vs. " + Model.BlackPlayer.Username;
+}
 
 
 <h1>@Model.WhitePlayer.Username vs @Model.BlackPlayer.Username</h1>

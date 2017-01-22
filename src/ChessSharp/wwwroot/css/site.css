@@ -82,8 +82,9 @@ textarea {
 
 footer {
     clear: both;
-    float: right;
+    align-content: center;
     margin-top: 2vw;
+    
 }
 
 .my-containers {
@@ -102,6 +103,15 @@ footer {
 a {
     padding: 0px 2px 0px 2px;
 }
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
 
 .my-containers .header {
     font-size: 1.1vw;
